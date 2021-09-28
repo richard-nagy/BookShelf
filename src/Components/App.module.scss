@@ -18,6 +18,7 @@
 
 $base-green: #317773;
 $pale-green: #a0bcbc;
+$white-green: #d0dcdc;
 
 html,
 body {
@@ -72,7 +73,8 @@ body {
   background-color: $base-green;
 }
 
-.srcButton {
+.srcButton,
+.srcButtonActive {
   height: 20px;
   width: fit-content;
   padding: 5px 10px 5px 10px;
@@ -82,15 +84,16 @@ body {
   border: 2px solid $base-green;
   border-bottom: none;
   color: $base-green;
+  cursor: default;
+}
+
+.srcButton:hover,
+.year:hover {
+  text-decoration: underline;
   cursor: pointer;
 }
 
-.srcButton:hover {
-  text-decoration: underline;
-}
-
 .srcButtonActive {
-  composes: srcButton;
   background-color: $base-green;
   color: white;
   font-family: GentiumBookBasic-Bold;
@@ -99,6 +102,45 @@ body {
 .srcContainer {
   display: flex;
   flex-direction: row;
+}
+
+.years {
+  composes: srcContainer;
+  cursor: default;
+  color: $base-green;
+  font-size: 20px;
+  margin-top: 10px;
+}
+
+.yearFocus {
+  font-family: GentiumBookBasic-Bold;
+}
+
+.bookContainer {
+  border-radius: 10px;
+  padding: 10px;
+  margin-top: 10px;
+  --auto-grid-min-size: 180px;
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(var(--auto-grid-min-size), 10px)
+  );
+  grid-gap: 25px;
+  justify-content: center;
+}
+
+.gridElement {
+  background-color: $pale-green;
+  height: 250px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: -5px 5px 5px #aaaaaa;
+}
+
+.gridElement:hover {
+  background-color: $base-green;
 }
 
 .footer {
@@ -113,4 +155,61 @@ body {
 .logo {
   font-family: Pacifico-Regular;
   font-size: 28px;
+}
+
+.stars {
+  text-align: center;
+  color: $base-green;
+  font-size: 26px;
+}
+
+.booksStars,
+.gridElement {
+  cursor: pointer;
+}
+
+.circle {
+  color: $pale-green;
+  border-radius: 50%;
+  background-color: $white-green;
+  height: 50px;
+  width: 50px;
+}
+
+.circle::before {
+  content: "+";
+  height: 52px;
+  width: 50px;
+  font-size: 50px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-family:Arial, Helvetica, sans-serif;
+  color: $pale-green;
+}
+
+.teszt{
+  font-family: GentiumBookBasic-Bold;
+  font-size: $base-green;
+  font-size: 28px;
+  color: $base-green;
+}
+
+.bookResults{
+  display: flex;
+  flex-direction: row;
+  margin: 10px 0 10px 0;
+}
+
+.bookResultsNmb{
+  background-color: $base-green;
+  border-radius: 10px;
+  color: white;
+  font-size: 20px;
+  padding: 0 5px 0 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
 }
