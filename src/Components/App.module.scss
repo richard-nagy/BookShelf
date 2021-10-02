@@ -21,12 +21,10 @@ $base-green: #317773;
 $pale-green: #a0bcbc;
 $white-green: #d0dcdc;
 
-
 .flex-row {
   display: flex;
   flex-direction: row;
 }
-
 
 //Base Website ↴
 html,
@@ -68,6 +66,10 @@ body {
 .logo {
   font-family: Pacifico-Regular;
   font-size: 28px;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
 }
 
 //Content ↴
@@ -99,22 +101,25 @@ body {
   border-bottom: none;
   color: $base-green;
   cursor: default;
+  font-family: GentiumBookBasic-Bold;
 }
 
 .srcButtonActive {
   background-color: $base-green;
   color: white;
-  font-family: GentiumBookBasic-Bold;
 }
 
 .srcButton:hover,
-.year:hover {
+.year:hover,
+.srcButtonActive:hover,
+.yearFocus:hover {
   text-decoration: underline;
   cursor: pointer;
 }
 
-.dot{
+.dot {
   composes: flex-row;
+  margin-top: 10px;
 }
 
 .dot:not(:last-child):after {
@@ -128,12 +133,12 @@ body {
   background-color: $base-green;
 }
 
-.years {
+.years,
+.yearFocus {
   composes: flex-row;
   cursor: default;
   color: $base-green;
   font-size: 20px;
-  margin-top: 10px;
 }
 
 .yearFocus {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./App.module.scss";
 import BookCover from "../Pictures/BookCover.jpg";
 
@@ -33,68 +33,126 @@ const Books = {
     year: 2018,
     stars: 5,
   },
+  book5: {
+    author: "Author Name5",
+    title: "The Title5",
+    year: 2021,
+    stars: 5,
+  },
+  book6: {
+    author: "Author Name6",
+    title: "The Title6",
+    year: 2019,
+    stars: 2,
+  },
 };
 
-function returnStars(nmbrOfStars) {
-  var stars = "";
-  for (let index = 0; index < nmbrOfStars; index++) stars += "★";
-
-  for (let index = 0; index < 5 - nmbrOfStars; index++) stars += "☆";
-
-  return <div className={styles.stars}>{stars}</div>;
-}
-
-function returnYears() {
-  let array = [];
-  for (let index = 0; index < Object.keys(Books).length; index++) {
-    array.push(Books[Object.keys(Books)[index]].year);
-  }
-
-  function compareNumbers(a, b) {
-    return a - b;
-  }
-
-  array.join();
-  array.reverse().reverse(compareNumbers);
-  array = [...new Set(array)];
-  return array.map((keyName, key) => (
-    <div className={styles.dot}>
-      <div className={styles.year}>{keyName}</div>
-    </div>
-  ));
-}
+let resultsNumber = 0;
 
 function App() {
+  const [activeFilter, setActiveFilter] = useState();
+  const [yearsArray, setYearsArray] = useState([]);
+  const addEntryClick = (value) => {
+    setYearsArray([...value]);
+  };
+
+  useEffect(() => {
+    let array = [];
+    for (const [key] of Object.entries(Books)) {
+      array.push(Books[key].year);
+    }
+    array.join();
+    array.sort();
+    array = [...new Set(array)];
+    array.reverse();
+    setActiveFilter(array[0]);
+    addEntryClick(array);
+  }, []);
+
+  function returnStars(nmbrOfStars) {
+    var stars = "";
+    for (let index = 0; index < nmbrOfStars; index++) stars += "★";
+    for (let index = 0; index < 5 - nmbrOfStars; index++) stars += "☆";
+    return <div className={styles.stars}>{stars}</div>;
+  }
+
+  function returnYears() {
+    return yearsArray.map((keyName, key) => (
+      <div className={styles.dot}>
+        <div
+          className={
+            activeFilter === yearsArray[key] ? styles.yearFocus : styles.year
+          }
+          onClick={() => setActiveFilter(yearsArray[key])}
+        >
+          {keyName}
+        </div>
+      </div>
+    ));
+  }
+
+  function stuff() {
+    resultsNumber = 0;
+    return (
+      <div className={styles.bookContainer}>
+        {Object.keys(Books).map((keyName, key) =>
+          activeFilter === Books[keyName].year || activeFilter === "All"
+            ? ((resultsNumber += 1),
+              (
+                <div className={styles.booksStars} key={key}>
+                  <img src={BookCover} alt="BookCover" />
+                  {returnStars(Books[keyName].stars)}
+                </div>
+              ))
+            : null
+        )}
+        <div className={styles.addBook}>
+          <div className={styles.add} />
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
         <div className={styles.menu}>
-          <div className={styles.logo}>BookShelf</div>
+          <div className={styles.logo} unselectable="on">
+            BookShelf
+          </div>
         </div>
       </div>
       <div className={styles.content}>
         <div className={styles.srcContainer}>
-          <div className={styles.srcButtonActive}>Éves Bontás</div>
-          <div className={styles.srcButton}>Összes</div>
-        </div>
-        <div className={styles.srcDivider} />
-        <div className={styles.years}>{returnYears()}</div>
-        <div className={styles.bookResults}>
-          <div className={styles.bookResultsYear}>2021</div>
-          &nbsp;
-          <div className={styles.bookResultsNmb}>5</div>
-        </div>
-        <div className={styles.bookContainer}>
-          {Object.keys(Books).map((keyName, key) => (
-            <div className={styles.booksStars} key={key}>
-              <img src={BookCover} alt="BookCover" />
-              {returnStars(Books[keyName].stars)}
-            </div>
-          ))}
-          <div className={styles.addBook}>
-            <div className={styles.add} />
+          <div
+            className={
+              activeFilter !== "All" ? styles.srcButtonActive : styles.srcButton
+            }
+            onClick={() => setActiveFilter(yearsArray[0])}
+          >
+            Éves Bontás
+          </div>
+          <div
+            className={
+              activeFilter === "All" ? styles.srcButtonActive : styles.srcButton
+            }
+            onClick={() => setActiveFilter("All")}
+          >
+            Összes
           </div>
         </div>
+        <div className={styles.srcDivider} />
+        {activeFilter !== "All" ? (
+          <div className={styles.years}>{returnYears()}</div>
+        ) : null}
+        <div className={styles.bookResults}>
+          <div className={styles.bookResultsYear}>
+            {activeFilter === "All" ? "Összes" : activeFilter}
+          </div>
+          &nbsp;
+          <div className={styles.bookResultsNmb}>{resultsNumber}</div>
+        </div>
+        {stuff()}
       </div>
       <div className={styles.footer}></div>
     </div>
