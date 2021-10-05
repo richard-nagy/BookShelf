@@ -1,73 +1,59 @@
 import React, { useEffect, useState } from "react";
 import styles from "./App.module.scss";
 import BookCover from "../Pictures/BookCover.jpg";
-
-const Books = {
-  book0: {
-    author: "Author Name0",
-    title: "The Title0",
-    year: 2021,
-    stars: 1,
-  },
-  book1: {
-    author: "Author Name1",
-    title: "The Title1",
-    year: 2019,
-    stars: 3,
-  },
-  book2: {
-    author: "Author Name2",
-    title: "The Title2",
-    year: 2021,
-    stars: 5,
-  },
-  book3: {
-    author: "Author Name3",
-    title: "The Title3",
-    year: 2020,
-    stars: 4,
-  },
-  book4: {
-    author: "Author Name4",
-    title: "The Title4",
-    year: 2018,
-    stars: 5,
-  },
-  book5: {
-    author: "Author Name5",
-    title: "The Title5",
-    year: 2021,
-    stars: 5,
-  },
-  book6: {
-    author: "Author Name6",
-    title: "The Title6",
-    year: 2019,
-    stars: 2,
-  },
-};
+import Add from "./Add.js";
+import firebase from "./util/firebase";
 
 let resultsNumber = 0;
+let classContainer = styles.container;
+let books = {};
 
 function App() {
   const [activeFilter, setActiveFilter] = useState();
   const [yearsArray, setYearsArray] = useState([]);
-  const addEntryClick = (value) => {
+  const [showAdd, setShowAdd] = useState(false);
+  const showAddOnClick = () => {
+    setShowAdd(false);
+  };
+  const yearsArrayCaller = (value) => {
     setYearsArray([...value]);
   };
 
   useEffect(() => {
-    let array = [];
-    for (const [key] of Object.entries(Books)) {
-      array.push(Books[key].year);
-    }
-    array.join();
-    array.sort();
-    array = [...new Set(array)];
-    array.reverse();
-    setActiveFilter(array[0]);
-    addEntryClick(array);
-  }, []);
+    const allBooksRef = firebase.database().ref("AllBooks");
+    const usersBooksRef = firebase.database().ref("Users/User00");
+
+    let userBooks = "";
+
+    usersBooksRef.on("value", (snapshot) => {
+      const value = snapshot.val();
+      for (let id in value) {
+        userBooks = value[id].split(" ");
+      }
+    });
+
+    allBooksRef.on("value", (snapshot) => {
+      const value = snapshot.val();
+      const booksList = [];
+      for (let id in value) {
+        if (userBooks.includes(value[id].id)) booksList.push(value[id]);
+      }
+
+      books = booksList;
+
+      let years = [];
+
+      for (const [key] of Object.entries(booksList)) {
+        years.push(booksList[key].year);
+      }
+      years.join();
+      years.sort();
+      years = [...new Set(years)];
+      years.reverse();
+      setActiveFilter(years[0]);
+      yearsArrayCaller(years);
+    });
+  }, [showAdd]);
 
   function returnStars(nmbrOfStars) {
     var stars = "";
@@ -78,12 +64,15 @@ function App() {
 
   function returnYears() {
     return yearsArray.map((keyName, key) => (
-      <div className={styles.dot}>
+      <div className={styles.dot} key={key}>
         <div
           className={
             activeFilter === yearsArray[key] ? styles.yearFocus : styles.year
           }
-          onClick={() => setActiveFilter(yearsArray[key])}
+          onClick={() => {
+            setActiveFilter(yearsArray[key]);
+            classContainer = styles.container;
+          }}
         >
           {keyName}
         </div>
@@ -91,22 +80,22 @@ function App() {
     ));
   }
 
-  function stuff() {
+  function BookContainer() {
     resultsNumber = 0;
     return (
       <div className={styles.bookContainer}>
-        {Object.keys(Books).map((keyName, key) =>
-          activeFilter === Books[keyName].year || activeFilter === "All"
+        {Object.keys(books).map((keyName, key) =>
+          activeFilter === books[keyName].year || activeFilter === "All"
             ? ((resultsNumber += 1),
               (
                 <div className={styles.booksStars} key={key}>
                   <img src={BookCover} alt="BookCover" />
-                  {returnStars(Books[keyName].stars)}
+                  {returnStars(books[keyName].stars)}
                 </div>
               ))
             : null
         )}
-        <div className={styles.addBook}>
+        <div className={styles.addBook} onClick={() => setShowAdd(true)}>
           <div className={styles.add} />
         </div>
       </div>
@@ -114,7 +103,21 @@ function App() {
   }
 
   return (
-    <div className={styles.container}>
+    <div className={classContainer}>
+      {showAdd === true
+        ? ((classContainer = styles.unscrollableContainer),
+          (
+            <>
+              <div
+                className={styles.darkOverlay}
+                onClick={() => {
+                  setShowAdd(false);
+                }}
+              />
+              <Add exit={showAddOnClick} />
+            </>
+          ))
+        : null}
       <div className={styles.header}>
         <div className={styles.menu}>
           <div className={styles.logo} unselectable="on">
@@ -152,7 +155,7 @@ function App() {
           &nbsp;
           <div className={styles.bookResultsNmb}>{resultsNumber}</div>
         </div>
-        {stuff()}
+        {BookContainer()}
       </div>
       <div className={styles.footer}></div>
     </div>

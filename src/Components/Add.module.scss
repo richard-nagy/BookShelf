@@ -1,0 +1,93 @@
+@import "./Variables.scss";
+
+.add {
+  position: absolute;
+  height: 80%;
+  width: 80%;
+  margin: auto;
+  max-width: 850px;
+}
+
+.header,
+.footer {
+  height: 20px;
+  width: calc(100% - 20px);
+  background-color: $base-green;
+  color: white;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  font-size: 18px;
+}
+
+//Header
+.header {
+  border-radius: 10px 10px 0 0;
+  justify-content: space-between;
+}
+
+.exit {
+  cursor: pointer;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.exit:hover {
+  color: lightgray;
+}
+
+//Content
+.content {
+  background-color: white;
+  height: 80%;
+  width: calc(100% - 20px);
+  padding: 10px;
+  overflow: auto;
+}
+
+.books {
+  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 150px);
+  grid-gap: 10px;
+  padding: 10px;
+}
+
+.book {
+  height: 250px;
+  background-color: red;
+  cursor: pointer;
+  border: 1px solid black;
+}
+
+//Footer
+.footer {
+  border-radius: 0 0 10px 10px;
+  justify-content: flex-end;
+}
+
+button {
+  background-color: $base-green;
+  border-radius: 10px;
+  border: 2px solid white;
+  color: white;
+  padding: 1px 5px 1px 5px;
+  font-size: 16px;
+}
+
+button:hover {
+  background-color: white;
+  color: $base-green;
+  cursor: pointer;
+}
+
+button:disabled {
+  border: 2px solid lightgray;
+  color: lightgray;
+}
+
+button:disabled:hover {
+  background-color: $base-green;
+  cursor: default;
+}

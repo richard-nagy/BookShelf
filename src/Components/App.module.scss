@@ -1,27 +1,6 @@
-//Variables ↴
-@font-face {
-  font-family: Pacifico-Regular;
-  src: local(Pacifico-Regular),
-    url(../fonts/Pacifico-Regular.ttf) format("truetype");
-}
+@import "./Variables.scss";
 
-@font-face {
-  font-family: GentiumBookBasic-Regular;
-  src: local(GentiumBookBasic-Regular),
-    url(../fonts/GentiumBookBasic-Regular.ttf) format("truetype");
-}
-
-@font-face {
-  font-family: GentiumBookBasic-Bold;
-  src: local(GentiumBookBasic-Bold),
-    url(../fonts/GentiumBookBasic-Bold.ttf) format("truetype");
-}
-
-$base-green: #317773;
-$pale-green: #a0bcbc;
-$white-green: #d0dcdc;
-
-.flex-row {
+.flexRow {
   display: flex;
   flex-direction: row;
 }
@@ -34,10 +13,25 @@ body {
   background-color: $pale-green;
 }
 
-.container {
+.container,
+.unscrollableContainer {
   display: grid;
   grid-template-rows: 1fr auto;
   height: 100vh;
+}
+
+.unscrollableContainer {
+  overflow: hidden;
+}
+
+//Dark Overlay
+.darkOverlay {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  height: 100%;
+  width: 100%;
+  background-color: #0000007f;
 }
 
 //Header ↴
@@ -52,6 +46,7 @@ body {
 
 .menu {
   display: flex;
+  justify-content: space-between;
   box-sizing: border-box;
   color: white;
   width: 80%;
@@ -86,7 +81,7 @@ body {
 }
 
 .srcContainer {
-  composes: flex-row;
+  composes: flexRow;
 }
 
 .srcButton,
@@ -118,7 +113,7 @@ body {
 }
 
 .dot {
-  composes: flex-row;
+  composes: flexRow;
   margin-top: 10px;
 }
 
@@ -135,7 +130,7 @@ body {
 
 .years,
 .yearFocus {
-  composes: flex-row;
+  composes: flexRow;
   cursor: default;
   color: $base-green;
   font-size: 20px;
@@ -237,6 +232,26 @@ img {
   grid-row-end: 3;
 }
 
+.menuItemsMobile {
+  display: none;
+  height: fit-content;
+  background: none;
+  border: none;
+  outline: inherit;
+  color: white;
+  background: $base-green;
+  cursor: pointer;
+  font-size: 18px;
+  height: 100%;
+  font-family: GentiumBookBasic-Bold;
+  font-size: 18px;
+}
+
+.menuItemsMobile:hover, .menuItemsMobile:focus{
+  background: white;
+  color: $base-green;
+}
+
 //Meda Queries ↴
 $breakpoints: (
   1024px: 230px,
@@ -299,5 +314,13 @@ $breakpoints2: (
 
   .bookContainer {
     grid-gap: 15px;
+  }
+
+  .menuItemsDesktop {
+    display: none;
+  }
+
+  .menuItemsMobile {
+    display: inline;
   }
 }
