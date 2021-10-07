@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import styles from "./App.module.scss";
+import appStyles from "./App.module.scss";
 import BookCover from "../Pictures/BookCover.jpg";
 import Add from "./Add.js";
 import firebase from "./util/firebase";
 
 let resultsNumber = 0;
-let classContainer = styles.container;
+let appContainer = appStyles.appContainerScrollable;
 let books = {};
 
 function App() {
@@ -59,19 +59,19 @@ function App() {
     var stars = "";
     for (let index = 0; index < nmbrOfStars; index++) stars += "★";
     for (let index = 0; index < 5 - nmbrOfStars; index++) stars += "☆";
-    return <div className={styles.stars}>{stars}</div>;
+    return <div className={appStyles.stars}>{stars}</div>;
   }
 
   function returnYears() {
     return yearsArray.map((keyName, key) => (
-      <div className={styles.dot} key={key}>
+      <div className={appStyles.dot} key={key}>
         <div
           className={
-            activeFilter === yearsArray[key] ? styles.yearFocus : styles.year
+            activeFilter === yearsArray[key] ? appStyles.yearsFocus : appStyles.year
           }
           onClick={() => {
             setActiveFilter(yearsArray[key]);
-            classContainer = styles.container;
+            appContainer = appStyles.appContainerScrollable;
           }}
         >
           {keyName}
@@ -80,36 +80,36 @@ function App() {
     ));
   }
 
-  function BookContainer() {
+  function BooksContainer() {
     resultsNumber = 0;
     return (
-      <div className={styles.bookContainer}>
+      <div className={appStyles.booksContainer}>
         {Object.keys(books).map((keyName, key) =>
           activeFilter === books[keyName].year || activeFilter === "All"
             ? ((resultsNumber += 1),
               (
-                <div className={styles.booksStars} key={key}>
+                <div className={appStyles.booksStars} key={key}>
                   <img src={BookCover} alt="BookCover" />
                   {returnStars(books[keyName].stars)}
                 </div>
               ))
             : null
         )}
-        <div className={styles.addBook} onClick={() => setShowAdd(true)}>
-          <div className={styles.add} />
+        <div className={appStyles.addBook} onClick={() => setShowAdd(true)}>
+          <div className={appStyles.addCenter} />
         </div>
       </div>
     );
   }
 
   return (
-    <div className={classContainer}>
+    <div className={appContainer}>
       {showAdd === true
-        ? ((classContainer = styles.unscrollableContainer),
+        ? ((appContainer = appStyles.appContainerUnscrollable),
           (
             <>
               <div
-                className={styles.darkOverlay}
+                className={appStyles.darkOverlay}
                 onClick={() => {
                   setShowAdd(false);
                 }}
@@ -118,18 +118,20 @@ function App() {
             </>
           ))
         : null}
-      <div className={styles.header}>
-        <div className={styles.menu}>
-          <div className={styles.logo} unselectable="on">
+      <div className={appStyles.header}>
+        <div className={appStyles.menu}>
+          <div className={appStyles.logo} unselectable="on">
             BookShelf
           </div>
         </div>
       </div>
-      <div className={styles.content}>
-        <div className={styles.srcContainer}>
+      <div className={appStyles.content}>
+        <div className={appStyles.optionsContainer}>
           <div
             className={
-              activeFilter !== "All" ? styles.srcButtonActive : styles.srcButton
+              activeFilter !== "All"
+                ? appStyles.optionButtonActive
+                : appStyles.optionButton
             }
             onClick={() => setActiveFilter(yearsArray[0])}
           >
@@ -137,27 +139,29 @@ function App() {
           </div>
           <div
             className={
-              activeFilter === "All" ? styles.srcButtonActive : styles.srcButton
+              activeFilter === "All"
+                ? appStyles.optionButtonActive
+                : appStyles.optionButton
             }
             onClick={() => setActiveFilter("All")}
           >
             Összes
           </div>
         </div>
-        <div className={styles.srcDivider} />
+        <div className={appStyles.optionDivider} />
         {activeFilter !== "All" ? (
-          <div className={styles.years}>{returnYears()}</div>
+          <div className={appStyles.yearsContainer}>{returnYears()}</div>
         ) : null}
-        <div className={styles.bookResults}>
-          <div className={styles.bookResultsYear}>
+        <div className={appStyles.bookResults}>
+          <div className={appStyles.bookResultsYear}>
             {activeFilter === "All" ? "Összes" : activeFilter}
           </div>
           &nbsp;
-          <div className={styles.bookResultsNmb}>{resultsNumber}</div>
+          <div className={appStyles.bookResultsNmbr}>{resultsNumber}</div>
         </div>
-        {BookContainer()}
+        {BooksContainer()}
       </div>
-      <div className={styles.footer}></div>
+      <div className={appStyles.footer}></div>
     </div>
   );
 }

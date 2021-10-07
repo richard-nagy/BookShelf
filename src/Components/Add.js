@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import addStyles from "./Add.module.scss";
+import "./App.module.scss";
 import firebase from "./util/firebase";
+import bookCover from "../Pictures/BookCover.jpg";
 
 function Add({ exit }) {
   const [selectBook, setSelectBook] = useState("");
@@ -52,25 +54,17 @@ function Add({ exit }) {
   }, []);
 
   return (
-    <div className={addStyles.add}>
+    <div className={addStyles.addComponent}>
       <div className={addStyles.header}>
         <div>Könyv Hozzáadása</div>
-        <div onClick={exit} className={addStyles.exit}>
-          ✖
+        <div onClick={exit} className={addStyles.xButton}>
+          +
         </div>
       </div>
       <div className={addStyles.content}>
-        <div className={addStyles.books}>
+        <div className={addStyles.booksContainer}>
           {Object.keys(books).map((keyName, key) => (
-            <div
-              className={addStyles.book}
-              key={key}
-              onClick={() => {
-                setSelectBook(books[key]);
-              }}
-            >
-              ID: {books[key]}
-            </div>
+            <img src={bookCover} alt="BookCover" onClick={()=> setSelectBook(books[key])}/>
           ))}
         </div>
       </div>

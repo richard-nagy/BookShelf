@@ -1,11 +1,12 @@
 @import "./Variables.scss";
 
-.add {
+.addComponent {
   position: absolute;
   height: 80%;
   width: 80%;
   margin: auto;
   max-width: 850px;
+  font-family: GentiumBookBasic-Regular;
 }
 
 .header,
@@ -26,14 +27,14 @@
   justify-content: space-between;
 }
 
-.exit {
+.xButton {
   cursor: pointer;
   color: white;
-  font-size: 20px;
-  font-weight: bold;
+  font-size: 45px;
+  transform: rotate(45deg);
 }
 
-.exit:hover {
+.xButton:hover {
   color: lightgray;
 }
 
@@ -46,19 +47,16 @@
   overflow: auto;
 }
 
-.books {
+.booksContainer {
   justify-content: center;
   display: grid;
   grid-template-columns: repeat(auto-fill, 150px);
-  grid-gap: 10px;
+  grid-gap: 40px;
   padding: 10px;
 }
 
-.book {
-  height: 250px;
-  background-color: red;
+img {
   cursor: pointer;
-  border: 1px solid black;
 }
 
 //Footer
@@ -69,25 +67,63 @@
 
 button {
   background-color: $base-green;
-  border-radius: 10px;
+  border-radius: 15px;
   border: 2px solid white;
   color: white;
   padding: 1px 5px 1px 5px;
-  font-size: 16px;
+  font-size: 18px;
+  font-family: GentiumBookBasic-Regular;
 }
 
 button:hover {
-  background-color: white;
-  color: $base-green;
+  text-decoration: underline;
   cursor: pointer;
 }
 
 button:disabled {
-  border: 2px solid lightgray;
-  color: lightgray;
+  border: 2px solid gray;
+  color: gray;
 }
 
 button:disabled:hover {
   background-color: $base-green;
   cursor: default;
+  text-decoration: none;
 }
+
+//Meda Queries
+$breakpoints: (
+  1024px: 140px,
+  768px: 130px,
+  480px: 100px,
+);
+
+@each $width, $margin in $breakpoints {
+  @media screen and (max-width: $width) {
+    .booksContainer {
+      grid-template-columns: repeat(auto-fill, $margin);
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  button {
+    font-size: 14px;
+  }
+  .header {
+    font-size: 16px;
+  }
+
+  .header,
+  .footer {
+    height: 10px;
+  }
+
+  .xButton {
+    font-size: 30px;
+  }
+
+  .booksContainer{
+    grid-gap: 15px;
+  }
+} ;

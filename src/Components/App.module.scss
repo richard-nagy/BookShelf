@@ -13,14 +13,14 @@ body {
   background-color: $pale-green;
 }
 
-.container,
-.unscrollableContainer {
+.appContainerScrollable,
+.appContainerUnscrollable {
   display: grid;
   grid-template-rows: 1fr auto;
   height: 100vh;
 }
 
-.unscrollableContainer {
+.appContainerUnscrollable {
   overflow: hidden;
 }
 
@@ -80,12 +80,12 @@ body {
   margin: 25px auto 25px auto;
 }
 
-.srcContainer {
+.optionsContainer {
   composes: flexRow;
 }
 
-.srcButton,
-.srcButtonActive {
+.optionButton,
+.optionButtonActive {
   height: 20px;
   width: fit-content;
   padding: 5px 10px 5px 10px;
@@ -99,14 +99,14 @@ body {
   font-family: GentiumBookBasic-Bold;
 }
 
-.srcButtonActive {
+.optionButtonActive {
   background-color: $base-green;
   color: white;
 }
 
-.srcButton:hover,
+.optionButton:hover,
 .year:hover,
-.srcButtonActive:hover,
+.optionButtonActive:hover,
 .yearFocus:hover {
   text-decoration: underline;
   cursor: pointer;
@@ -122,21 +122,21 @@ body {
   font-weight: bold;
 }
 
-.srcDivider {
+.optionDivider {
   width: 100%;
   height: 5px;
   background-color: $base-green;
 }
 
-.years,
-.yearFocus {
+.yearsContainer,
+.yearsFocus {
   composes: flexRow;
   cursor: default;
   color: $base-green;
   font-size: 20px;
 }
 
-.yearFocus {
+.yearsFocus {
   font-family: GentiumBookBasic-Bold;
 }
 
@@ -153,7 +153,7 @@ body {
   color: $base-green;
 }
 
-.bookResultsNmb {
+.bookResultsNmbr {
   background-color: $base-green;
   border-radius: 10px;
   color: white;
@@ -166,7 +166,7 @@ body {
   height: 32px;
 }
 
-.bookContainer {
+.booksContainer {
   justify-content: center;
   display: grid;
   grid-gap: 30px;
@@ -178,9 +178,14 @@ body {
 
 .booksStars {
   cursor: pointer;
+  // display: flex;
+  // flex-direction: column;
+  // justify-content: center;
 }
 
 img {
+  display: block;
+  margin: auto;
   box-shadow: -5px 5px 5px #aaaaaa;
   max-height: 250px;
 }
@@ -197,11 +202,11 @@ img {
   justify-content: center;
   background-color: $pale-green;
   cursor: pointer;
-  width: stretch;
+  width: 100%;
   height: 250px;
 }
 
-.add {
+.addCenter {
   color: $pale-green;
   border-radius: 50%;
   background-color: $white-green;
@@ -209,7 +214,7 @@ img {
   width: 50px;
 }
 
-.add::before {
+.addCenter::before {
   content: "+";
   height: 52px;
   width: 50px;
@@ -230,26 +235,6 @@ img {
   bottom: 0;
   grid-row-start: 2;
   grid-row-end: 3;
-}
-
-.menuItemsMobile {
-  display: none;
-  height: fit-content;
-  background: none;
-  border: none;
-  outline: inherit;
-  color: white;
-  background: $base-green;
-  cursor: pointer;
-  font-size: 18px;
-  height: 100%;
-  font-family: GentiumBookBasic-Bold;
-  font-size: 18px;
-}
-
-.menuItemsMobile:hover, .menuItemsMobile:focus{
-  background: white;
-  color: $base-green;
 }
 
 //Meda Queries ↴
@@ -281,14 +266,14 @@ $breakpoints2: (
 
 @each $width, $margin in $breakpoints2 {
   @media screen and (max-width: $width) {
-    .bookContainer {
+    .booksContainer {
       grid-template-columns: repeat(auto-fill, $margin);
     }
   }
 }
 
 @media screen and (max-width: 768px) {
-  .bookResultsNmb {
+  .bookResultsNmbr {
     font-size: 16px;
     height: 28px;
   }
@@ -296,14 +281,14 @@ $breakpoints2: (
     font-size: 24px;
   }
 
-  .srcButton,
-  .srcButtonActive,
+  .optionButton,
+  .optionButtonActive,
   .years {
     font-size: 16px;
   }
 
-  .srcButton,
-  .srcButtonActive {
+  .optionButton,
+  .optionButtonActive {
     padding: 2px 5px 0px 5px;
     margin-bottom: -2px;
   }
@@ -322,5 +307,21 @@ $breakpoints2: (
 
   .menuItemsMobile {
     display: inline;
+  }
+
+  .header {
+    height: 37px;
+  }
+
+  .logo {
+    font-size: 20px;
+  }
+
+  .footer {
+    height: 15px;
+  }
+
+  .srcDivider {
+    height: 3px;
   }
 }
