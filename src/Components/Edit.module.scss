@@ -1,0 +1,201 @@
+@import "./Variables.scss";
+
+.addComponent {
+  position: absolute;
+  height: fit-content;
+  max-height: 80%;
+  width: fit-content;
+  margin: auto;
+  max-width: 850px;
+  font-family: GentiumBookBasic-Regular;
+}
+
+.header,
+.footer {
+  height: 20px;
+  width: calc(100% - 20px);
+  background-color: $base-green;
+  color: white;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  font-size: 18px;
+}
+
+//Header
+.header {
+  border-radius: 10px 10px 0 0;
+  justify-content: space-between;
+}
+
+.xButton {
+  cursor: pointer;
+  color: white;
+  font-size: 45px;
+  transform: rotate(45deg);
+}
+
+.xButton:hover {
+  color: lightgray;
+}
+
+//Content
+.content {
+  background-color: white;
+  height: 80%;
+  width: calc(100% - 20px);
+  padding: 10px;
+  overflow: auto;
+  font-size: 18px;
+  color: $base-green;
+}
+
+img {
+  cursor: pointer;
+}
+
+.comment {
+  margin: 10px 0 10px 0;
+}
+
+.wrapper {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 10px;
+}
+.startingDate {
+  grid-column: 2;
+  grid-row: 1;
+}
+.bookCover {
+  grid-column: 1;
+  grid-row: 1 / 4;
+}
+.finishDate {
+  grid-column: 2;
+  grid-row: 2;
+}
+.stars {
+  grid-column: 2;
+  grid-row: 3;
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: row-reverse;
+  align-items: center;
+}
+
+.dateText {
+  margin-bottom: 5px;
+}
+
+//Footer
+.footer {
+  border-radius: 0 0 10px 10px;
+  justify-content: space-between;
+}
+
+button {
+  border-radius: 15px;
+  border: 2px solid white;
+  color: white;
+  padding: 1px 5px 1px 5px;
+  font-size: 18px;
+  font-family: GentiumBookBasic-Regular;
+}
+
+button:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+button:disabled {
+  border: 2px solid gray;
+  color: gray;
+}
+
+button:disabled:hover {
+  background-color: $base-green;
+  cursor: default;
+  text-decoration: none;
+}
+
+textarea {
+  width: calc(100% - 10px);
+  height: 100px;
+  resize: none;
+  border: 1px solid $base-green;
+  border-radius: 10px;
+  padding: 5px;
+}
+
+textarea:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px $base-green;
+}
+
+.input {
+  display: none;
+}
+.label {
+  font-size: 30px;
+  color: $pale-green;
+  cursor: pointer;
+}
+
+.label:hover,
+.label:hover ~ .label {
+  color: $base-green;
+}
+
+.starsNull {
+  color: $pale-green;
+  margin-top: 8px;
+  margin-right: 5px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.starsNull:hover {
+  color: $base-green;
+}
+
+//Meda Queries
+@media screen and (max-width: 768px) {
+  button {
+    font-size: 14px;
+  }
+  .header,
+  .wrapper {
+    font-size: 16px;
+  }
+
+  .header,
+  .footer {
+    height: 10px;
+  }
+
+  .xButton {
+    font-size: 30px;
+  }
+
+  .label {
+    font-size: 25px;
+  }
+
+  .starsNull {
+    font-size: 22px;
+    margin-top: 5px;
+  }
+
+  .stuff {
+    font-size: 16px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .wrapper {
+    display: grid;
+    grid-template-columns: auto;
+    gap: 10px;
+  }
+}

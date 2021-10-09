@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import appStyles from "./App.module.scss";
 import BookCover from "../Pictures/BookCover.jpg";
 import Add from "./Add.js";
+import Edit from "./Edit.js";
 import firebase from "./util/firebase";
 
 let resultsNumber = 0;
@@ -11,6 +12,10 @@ let books = {};
 function App() {
   const [activeFilter, setActiveFilter] = useState();
   const [yearsArray, setYearsArray] = useState([]);
+  const [showEdit, setShowEdit] = useState(false);
+  const showEditOnClick = () => {
+    setShowEdit(false);
+  };
   const [showAdd, setShowAdd] = useState(false);
   const showAddOnClick = () => {
     setShowAdd(false);
@@ -67,7 +72,9 @@ function App() {
       <div className={appStyles.dot} key={key}>
         <div
           className={
-            activeFilter === yearsArray[key] ? appStyles.yearsFocus : appStyles.year
+            activeFilter === yearsArray[key]
+              ? appStyles.yearsFocus
+              : appStyles.year
           }
           onClick={() => {
             setActiveFilter(yearsArray[key]);
@@ -88,7 +95,11 @@ function App() {
           activeFilter === books[keyName].year || activeFilter === "All"
             ? ((resultsNumber += 1),
               (
-                <div className={appStyles.booksStars} key={key}>
+                <div
+                  className={appStyles.booksStars}
+                  key={key}
+                  onClick={() => setShowEdit(true)}
+                >
                   <img src={BookCover} alt="BookCover" />
                   {returnStars(books[keyName].stars)}
                 </div>
@@ -115,6 +126,20 @@ function App() {
                 }}
               />
               <Add exit={showAddOnClick} />
+            </>
+          ))
+        : null}
+      {showEdit === true
+        ? ((appContainer = appStyles.appContainerUnscrollable),
+          (
+            <>
+              <div
+                className={appStyles.darkOverlay}
+                onClick={() => {
+                  setShowEdit(false);
+                }}
+              />
+              <Edit exit={showEditOnClick} />
             </>
           ))
         : null}
