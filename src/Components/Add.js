@@ -6,77 +6,82 @@ import bookCover from "../Pictures/BookCover.jpg";
 
 function Add({ exit }) {
   const [selectBook, setSelectBook] = useState("");
-  const [books, setBooks] = useState({});
-
-  function pushToDatabase(bookId) {
-    const usersRef = firebase.database().ref("Users/User00");
-
-    let data = {
-      books: bookId,
-    };
-
-    let userBooks = [];
-
-    usersRef.on("value", (snapshot) => {
-      userBooks.push(snapshot.val().Books);
-    });
-
-    usersRef.child("Books").set(data.books + " " + userBooks);
-
-    setSelectBook("");
-
-    exit();
-  }
+  const [books, setBooks] = useState(undefined);
+  const functionComponent = (data) => {
+    setBooks(data);
+  };
 
   useEffect(() => {
-    const todoRef2 = firebase.database().ref("Users/User00");
-    let userBooks;
-    todoRef2.on("value", (snapshot) => {
-      userBooks = snapshot.val().Books;
-    });
+    async function pullData() {
+      const userBooks = [];
+      const allBooks = [];
 
-    const allBooks = [];
-
-    const todoRef = firebase.database().ref("AllBooks");
-    todoRef.on("value", (snapshot) => {
-      const todos = snapshot.val();
-      const todoList = [];
-      for (let id in todos) {
-        todoList.push(todos[id]);
+      const eventref = firebase.database().ref("users/00/books");
+      const snapshot = await eventref.once("value");
+      const value = snapshot.val();
+      for (let id in value) {
+        userBooks.push(value[id].bookID);
       }
 
-      Object.keys(todoList).map((keyName, key) =>
-        allBooks.push(todoList[key].id)
-      );
-    });
+      const eventref2 = firebase.database().ref("allBooks");
+      const snapshot2 = await eventref2.once("value");
+      const value2 = snapshot2.val();
+      for (let id in value2) {
+        allBooks.push(value2[id].bookID);
+      }
 
-    setBooks(allBooks.filter((val) => !userBooks.split(" ").includes(val)));
+      console.log(userBooks);
+      console.log(allBooks);
+
+      functionComponent(allBooks.filter((val) => !userBooks.includes(val)));
+    }
+    pullData();
   }, []);
 
   return (
-    <div className={addStyles.addComponent}>
-      <div className={addStyles.header}>
-        <div>Könyv Hozzáadása</div>
-        <div onClick={exit} className={addStyles.xButton}>
-          +
+    <>
+      {books !== undefined ? (
+        <div className={addStyles.addComponent}>
+          <div className={addStyles.header}>
+            <div>Könyv Hozzáadása</div>
+            <div onClick={exit} className={addStyles.xButton}>
+              +
+            </div>
+          </div>
+          <div className={addStyles.content}>
+            <div className={addStyles.booksContainer}>
+              {Object.keys(books).map((keyName, key) => (
+                <img
+                  className={addStyles.addImg}
+                  src={bookCover}
+                  alt="BookCover"
+                  onClick={() => setSelectBook(books[key])}
+                />
+              ))}
+            </div>
+          </div>
+          <div className={addStyles.footer}>
+            <button
+              onClick={() => {
+                const userBooksRef = firebase.database().ref("users/00/books");
+                userBooksRef.child(selectBook).set({
+                  bookID: selectBook,
+                  finishDate: "????-??-??",
+                  stars: "0",
+                  startDate: "????-??-??",
+                });
+
+                setSelectBook("");
+                exit();
+              }}
+              disabled={selectBook === "" ? true : false}
+            >
+              Hozzáadás
+            </button>
+          </div>
         </div>
-      </div>
-      <div className={addStyles.content}>
-        <div className={addStyles.booksContainer}>
-          {Object.keys(books).map((keyName, key) => (
-            <img src={bookCover} alt="BookCover" onClick={()=> setSelectBook(books[key])}/>
-          ))}
-        </div>
-      </div>
-      <div className={addStyles.footer}>
-        <button
-          onClick={() => pushToDatabase(selectBook)}
-          disabled={selectBook === "" ? true : false}
-        >
-          Hozzáadás
-        </button>
-      </div>
-    </div>
+      ) : null}
+    </>
   );
 }
 

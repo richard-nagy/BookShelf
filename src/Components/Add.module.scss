@@ -55,10 +55,6 @@
   padding: 10px;
 }
 
-img {
-  cursor: pointer;
-}
-
 //Footer
 .footer {
   border-radius: 0 0 10px 10px;
@@ -127,3 +123,7 @@ $breakpoints: (
     grid-gap: 15px;
   }
 } ;
+
+.addImg{
+  cursor: pointer;
+}

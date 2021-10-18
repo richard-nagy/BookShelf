@@ -50,10 +50,6 @@
   color: $base-green;
 }
 
-img {
-  cursor: pointer;
-}
-
 .comment {
   margin: 10px 0 10px 0;
 }
@@ -79,9 +75,10 @@ img {
   grid-column: 2;
   grid-row: 3;
   display: flex;
-  justify-content: flex-end;
-  flex-direction: row-reverse;
   align-items: center;
+}
+.stars2{
+  display: flex;
 }
 
 .dateText {
@@ -136,27 +133,28 @@ textarea:focus {
 .input {
   display: none;
 }
-.label {
-  font-size: 30px;
-  color: $pale-green;
-  cursor: pointer;
-}
-
-.label:hover,
-.label:hover ~ .label {
-  color: $base-green;
-}
 
 .starsNull {
-  color: $pale-green;
-  margin-top: 8px;
-  margin-right: 5px;
+  color: $base-green;
   font-size: 24px;
+  cursor: pointer;
+  padding-top: 9px;
+}
+
+.label,
+.label label {
+  font-size: 30px;
+  color: $base-green;
   cursor: pointer;
 }
 
+.stars:hover .label,
 .starsNull:hover {
-  color: $base-green;
+  -webkit-text-stroke: 1px $base-green;
+}
+
+.label:hover ~ .label {
+  -webkit-text-stroke: 0px;
 }
 
 //Meda Queries
