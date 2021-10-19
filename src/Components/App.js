@@ -16,21 +16,21 @@ function App() {
   const [activeFilter, setActiveFilter] = useState("2021");
   const [yearsArray, setYearsArray] = useState([]);
   const [showEdit, setShowEdit] = useState(false);
+  const [showAdd, setShowAdd] = useState(false);
 
-  const showEditOnClick = () => {
+  const setShowEditFunction = () => {
     setShowEdit(false);
   };
-  const [showAdd, setShowAdd] = useState(false);
-  const showAddOnClick = () => {
+  const setShowAddFunction = () => {
     setShowAdd(false);
   };
-  const yearsArrayCaller = (value) => {
+  const setYearsArrayFunction = (value) => {
     setYearsArray([...value]);
   };
 
   useEffect(() => {
     let userBooksFD = [];
-    let ize = [];
+    let bookID = [];
 
     async function pullData() {
       const eventref = firebase.database().ref("users/00/books");
@@ -38,23 +38,20 @@ function App() {
       const value = snapshot.val();
       for (let id in value) {
         userBooksFD.push(value[id].finishDate.slice(0, 4));
-        ize.push(value[id].bookID);
+        bookID.push(value[id].bookID);
         stars.push(value[id].stars);
       }
 
       bookYears = userBooksFD;
-
-      books = ize;
-
+      books = bookID;
       userBooksFD.join();
       userBooksFD.sort();
       userBooksFD = [...new Set(userBooksFD)];
       userBooksFD.reverse();
-
-      yearsArrayCaller(userBooksFD);
+      setYearsArrayFunction(userBooksFD);
     }
     pullData();
-  }, [showAdd]);
+  }, []);
 
   return (
     <>
@@ -70,7 +67,7 @@ function App() {
                       setShowAdd(false);
                     }}
                   />
-                  <Add exit={showAddOnClick} />
+                  <Add exit={setShowAddFunction} />
                 </>
               ))
             : null}
@@ -84,7 +81,7 @@ function App() {
                       setShowEdit(false);
                     }}
                   />
-                  <Edit exit={showEditOnClick} bookID={editBookID} />
+                  <Edit exit={setShowEditFunction} bookID={editBookID} />
                 </>
               ))
             : null}
@@ -164,7 +161,6 @@ function App() {
                             }}
                           >
                             <img src={BookCover} alt="BookCover" />
-                            {/* {returnStars(bookYears[keyName].stars)} */}
                             <div className={appStyles.stars}>
                               {[...Array(parseInt(stars[key]))].map(
                                 (el, index) => (

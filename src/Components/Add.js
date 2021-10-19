@@ -7,7 +7,7 @@ import bookCover from "../Pictures/BookCover.jpg";
 function Add({ exit }) {
   const [selectBook, setSelectBook] = useState("");
   const [books, setBooks] = useState(undefined);
-  const functionComponent = (data) => {
+  const setBooksFunction = (data) => {
     setBooks(data);
   };
 
@@ -33,7 +33,7 @@ function Add({ exit }) {
       console.log(userBooks);
       console.log(allBooks);
 
-      functionComponent(allBooks.filter((val) => !userBooks.includes(val)));
+      setBooksFunction(allBooks.filter((val) => !userBooks.includes(val)));
     }
     pullData();
   }, []);
