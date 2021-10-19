@@ -3,6 +3,10 @@ import editStyle from "./Edit.module.scss";
 import bookCover from "../Pictures/BookCover.jpg";
 import firebase from "./util/firebase";
 
+let fDate = undefined;
+let sDate = undefined;
+let note = undefined;
+
 function Edit({ exit, bookID }) {
   const [allBooks, setAllBooks] = useState(undefined);
   const [usersBooks, setUsersBooks] = useState(undefined);
@@ -13,7 +17,12 @@ function Edit({ exit, bookID }) {
       const eventref = firebase.database().ref(table);
       const snapshot = await eventref.once("value");
       const value = snapshot.val()[bookID];
-      if (table === "users/00/books") setStars(value.stars);
+      if (table === "users/00/books") {
+        setStars(value.stars);
+        note = value.note;
+        sDate = value.starDate;
+        fDate = value.finishDate;
+      }
       set(value);
     }
 
@@ -23,7 +32,7 @@ function Edit({ exit, bookID }) {
 
   return (
     <>
-      {[allBooks, usersBooks].includes(undefined) === false ? (
+      {[allBooks, usersBooks].includes(undefined) === false && (
         <div className={editStyle.addComponent}>
           <div className={editStyle.header}>
             <div>Könyv Beállítások</div>
@@ -45,6 +54,7 @@ function Edit({ exit, bookID }) {
                       type="date"
                       name="finish"
                       defaultValue={usersBooks.startDate}
+                      onChange={(e) => (sDate = e.target.value)}
                     />
                   </form>
                 </div>
@@ -58,7 +68,8 @@ function Edit({ exit, bookID }) {
                     <input
                       type="date"
                       name="end"
-                      defaultValue={usersBooks.finishDate}
+                      defaultValue={fDate}
+                      onChange={(e) => (fDate = e.target.value)}
                     />
                   </form>
                 </div>
@@ -96,15 +107,40 @@ function Edit({ exit, bookID }) {
             </div>
             <div className={editStyle.comment}>Megjegyzés:</div>
             <div>
-              <textarea defaultValue={usersBooks.note}></textarea>
+              <textarea
+                defaultValue={note}
+                onChange={(e) => (note = e.target.value)}
+              ></textarea>
             </div>
           </div>
           <div className={editStyle.footer}>
-            <button>Törlés</button>
-            <button>Mentés</button>
+            <button
+              onClick={() => {
+                const userBooksRef = firebase.database().ref("users/00/books");
+                userBooksRef.child(bookID).set(null);
+                exit();
+              }}
+            >
+              Törlés
+            </button>
+            <button
+              onClick={() => {
+                const userBooksRef = firebase.database().ref("users/00/books");
+                userBooksRef.child(bookID).set({
+                  bookID: bookID,
+                  finishDate: fDate,
+                  stars: stars,
+                  startDate: sDate,
+                  note: note,
+                });
+                exit();
+              }}
+            >
+              Mentés
+            </button>
           </div>
         </div>
-      ) : null}
+      )}
     </>
   );
 }
