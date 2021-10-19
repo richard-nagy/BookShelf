@@ -30,9 +30,6 @@ function Add({ exit }) {
         allBooks.push(value2[id].bookID);
       }
 
-      console.log(userBooks);
-      console.log(allBooks);
-
       setBooksFunction(allBooks.filter((val) => !userBooks.includes(val)));
     }
     pullData();
@@ -40,7 +37,7 @@ function Add({ exit }) {
 
   return (
     <>
-      {books !== undefined ? (
+      {books !== undefined && (
         <div className={addStyles.addComponent}>
           <div className={addStyles.header}>
             <div>Könyv Hozzáadása</div>
@@ -52,6 +49,7 @@ function Add({ exit }) {
             <div className={addStyles.booksContainer}>
               {Object.keys(books).map((keyName, key) => (
                 <img
+                  key={key}
                   className={addStyles.addImg}
                   src={bookCover}
                   alt="BookCover"
@@ -64,13 +62,13 @@ function Add({ exit }) {
             <button
               onClick={() => {
                 const userBooksRef = firebase.database().ref("users/00/books");
+                const dt = new Date();
                 userBooksRef.child(selectBook).set({
                   bookID: selectBook,
-                  finishDate: "????-??-??",
+                  finishDate: `${dt.getFullYear()}-${dt.getMonth() + 1}-${dt.getDate()}`, // prettier-ignore
                   stars: "0",
-                  startDate: "????-??-??",
+                  startDate: `${dt.getFullYear()}-${dt.getMonth() + 1}-${dt.getDate()}`, // prettier-ignore
                 });
-
                 setSelectBook("");
                 exit();
               }}
@@ -80,7 +78,7 @@ function Add({ exit }) {
             </button>
           </div>
         </div>
-      ) : null}
+      )}
     </>
   );
 }
