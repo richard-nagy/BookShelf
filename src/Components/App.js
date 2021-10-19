@@ -51,40 +51,38 @@ function App() {
       setYearsArrayFunction(userBooksFD);
     }
     pullData();
-  }, []);
+  }, [showEdit, showAdd]);
 
   return (
     <>
-      {books !== undefined ? (
+      {books !== undefined && (
         <div className={appContainer}>
-          {showAdd === true
-            ? ((appContainer = appStyles.appContainerUnscrollable),
-              (
-                <>
-                  <div
-                    className={appStyles.darkOverlay}
-                    onClick={() => {
-                      setShowAdd(false);
-                    }}
-                  />
-                  <Add exit={setShowAddFunction} />
-                </>
-              ))
-            : null}
-          {showEdit === true
-            ? ((appContainer = appStyles.appContainerUnscrollable),
-              (
-                <>
-                  <div
-                    className={appStyles.darkOverlay}
-                    onClick={() => {
-                      setShowEdit(false);
-                    }}
-                  />
-                  <Edit exit={setShowEditFunction} bookID={editBookID} />
-                </>
-              ))
-            : null}
+          {showAdd === true &&
+            ((appContainer = appStyles.appContainerUnscrollable),
+            (
+              <>
+                <div
+                  className={appStyles.darkOverlay}
+                  onClick={() => {
+                    setShowAdd(false);
+                  }}
+                />
+                <Add exit={setShowAddFunction} />
+              </>
+            ))}
+          {showEdit === true &&
+            ((appContainer = appStyles.appContainerUnscrollable),
+            (
+              <>
+                <div
+                  className={appStyles.darkOverlay}
+                  onClick={() => {
+                    setShowEdit(false);
+                  }}
+                />
+                <Edit exit={setShowEditFunction} bookID={editBookID} />
+              </>
+            ))}
           <div className={appStyles.header}>
             <div className={appStyles.menu}>
               <div className={appStyles.logo} unselectable="on">
@@ -116,7 +114,7 @@ function App() {
               </div>
             </div>
             <div className={appStyles.optionDivider} />
-            {activeFilter !== "All" ? (
+            {activeFilter !== "All" && (
               <div className={appStyles.yearsContainer}>
                 {yearsArray.map((keyName, key) => (
                   <div className={appStyles.dot} key={key}>
@@ -136,7 +134,7 @@ function App() {
                   </div>
                 ))}
               </div>
-            ) : null}
+            )}
             <div className={appStyles.bookResults}>
               <div className={appStyles.bookResultsYear}>
                 {activeFilter === "All" ? "Összes" : activeFilter}
@@ -148,34 +146,31 @@ function App() {
               ((resultsNumber = 0),
               (
                 <div className={appStyles.booksContainer}>
-                  {Object.keys(bookYears).map((keyName, key) =>
-                    activeFilter === "All" || bookYears[key] === activeFilter
-                      ? ((resultsNumber += 1),
-                        (
-                          <div
-                            className={appStyles.booksStars}
-                            key={key}
-                            onClick={() => {
-                              setShowEdit(true);
-                              editBookID = books[key];
-                            }}
-                          >
-                            <img src={BookCover} alt="BookCover" />
-                            <div className={appStyles.stars}>
-                              {[...Array(parseInt(stars[key]))].map(
-                                (el, index) => (
-                                  <>★</>
-                                )
-                              )}
-                              {[...Array(5 - parseInt(stars[key]))].map(
-                                (el, index) => (
-                                  <>☆</>
-                                )
-                              )}
-                            </div>
+                  {Object.keys(bookYears).map(
+                    (keyName, key) =>
+                      (activeFilter === "All" ||
+                        bookYears[key] === activeFilter) &&
+                      ((resultsNumber += 1),
+                      (
+                        <div
+                          className={appStyles.booksStars}
+                          key={key}
+                          onClick={() => {
+                            setShowEdit(true);
+                            editBookID = books[key];
+                          }}
+                        >
+                          <img src={BookCover} alt="BookCover" />
+                          <div className={appStyles.stars}>
+                            {[...Array(parseInt(stars[key]))].map(
+                              (el, index) => "★"
+                            )}
+                            {[...Array(5 - parseInt(stars[key]))].map(
+                              (el, index) => "☆"
+                            )}
                           </div>
-                        ))
-                      : null
+                        </div>
+                      ))
                   )}
                   <div
                     className={appStyles.addBook}
@@ -189,7 +184,7 @@ function App() {
           </div>
           <div className={appStyles.footer}></div>
         </div>
-      ) : null}
+      )}
     </>
   );
 }
