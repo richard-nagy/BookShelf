@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import addStyles from "./Add.module.scss";
 import "./App.module.scss";
 import firebase from "./util/firebase";
-import bookCover from "../Pictures/BookCover.jpg";
+
+let covers = [];
 
 function Add({ exit }) {
   const [selectBook, setSelectBook] = useState("");
@@ -16,18 +17,19 @@ function Add({ exit }) {
       const userBooks = [];
       const allBooks = [];
 
-      const eventref = firebase.database().ref("users/00/books");
-      const snapshot = await eventref.once("value");
-      const value = snapshot.val();
-      for (let id in value) {
-        userBooks.push(value[id].bookID);
+      const usersRef = firebase.database().ref("users/00/books");
+      const usersSnapshot = await usersRef.once("value");
+      const usersValue = usersSnapshot.val();
+      for (let id in usersValue) {
+        userBooks.push(usersValue[id].bookID);
       }
 
-      const eventref2 = firebase.database().ref("allBooks");
-      const snapshot2 = await eventref2.once("value");
-      const value2 = snapshot2.val();
-      for (let id in value2) {
-        allBooks.push(value2[id].bookID);
+      const booksRef = firebase.database().ref("allBooks");
+      const booksSnapshot = await booksRef.once("value");
+      const booksValue = booksSnapshot.val();
+      for (let id in booksValue) {
+        allBooks.push(booksValue[id].bookID);
+        covers.push(booksValue[id].cover);
       }
 
       setBooksFunction(allBooks.filter((val) => !userBooks.includes(val)));
@@ -51,7 +53,7 @@ function Add({ exit }) {
                 <img
                   key={key}
                   className={addStyles.addImg}
-                  src={bookCover}
+                  src={covers[parseInt(books[key])]}
                   alt="BookCover"
                   onClick={() => setSelectBook(books[key])}
                 />

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import appStyles from "./App.module.scss";
-import BookCover from "../Pictures/BookCover.jpg";
 import Add from "./Add.js";
 import Edit from "./Edit.js";
 import firebase from "./util/firebase";
@@ -11,6 +10,7 @@ let bookYears = {};
 let books = undefined;
 let editBookID = undefined;
 let stars = [];
+let covers = [];
 
 function App() {
   const [activeFilter, setActiveFilter] = useState("2021");
@@ -33,13 +33,20 @@ function App() {
     let bookID = [];
 
     async function pullData() {
-      const eventref = firebase.database().ref("users/00/books");
-      const snapshot = await eventref.once("value");
-      const value = snapshot.val();
-      for (let id in value) {
-        userBooksFD.push(value[id].finishDate.slice(0, 4));
-        bookID.push(value[id].bookID);
-        stars.push(value[id].stars);
+      const usersRef = firebase.database().ref("users/00/books");
+      const usersSnapshot = await usersRef.once("value");
+      const usersValue = usersSnapshot.val();
+      for (let id in usersValue) {
+        userBooksFD.push(usersValue[id].finishDate.slice(0, 4));
+        bookID.push(usersValue[id].bookID);
+        stars.push(usersValue[id].stars);
+      }
+
+      const booksRef = firebase.database().ref("allBooks");
+      const booksSnapshot = await booksRef.once("value");
+      const booksValue = booksSnapshot.val();
+      for (let id in booksValue) {
+        covers.push(booksValue[id].cover);
       }
 
       bookYears = userBooksFD;
@@ -160,7 +167,7 @@ function App() {
                             editBookID = books[key];
                           }}
                         >
-                          <img src={BookCover} alt="BookCover" />
+                          <img src={covers[key]} alt="BookCover" />
                           <div className={appStyles.stars}>
                             {[...Array(parseInt(stars[key]))].map(
                               (el, index) => "★"

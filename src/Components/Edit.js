@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import editStyle from "./Edit.module.scss";
-import bookCover from "../Pictures/BookCover.jpg";
 import firebase from "./util/firebase";
 
 let fDate = undefined;
@@ -13,21 +12,24 @@ function Edit({ exit, bookID }) {
   const [stars, setStars] = useState("5");
 
   useEffect(() => {
-    async function pullData(set, table) {
-      const eventref = firebase.database().ref(table);
-      const snapshot = await eventref.once("value");
-      const value = snapshot.val()[bookID];
-      if (table === "users/00/books") {
-        setStars(value.stars);
-        note = value.note;
-        sDate = value.starDate;
-        fDate = value.finishDate;
-      }
-      set(value);
+    async function pullData() {
+      const usersRef = firebase.database().ref("users/00/books");
+      const usersSnapshot = await usersRef.once("value");
+      const usersValue = usersSnapshot.val()[bookID];
+
+      note = usersValue.note;
+      sDate = usersValue.starDate;
+      fDate = usersValue.finishDate;
+      setStars(usersValue.stars);
+      setUsersBooks(usersValue);
+
+      const booksRef = firebase.database().ref("allBooks");
+      const booksSnapshot = await booksRef.once("value");
+      const booksValue = booksSnapshot.val()[bookID];
+      setAllBooks(booksValue);
     }
 
-    pullData(setAllBooks, "allBooks");
-    pullData(setUsersBooks, "users/00/books");
+    pullData();
   }, [bookID]);
 
   return (
@@ -41,7 +43,7 @@ function Edit({ exit, bookID }) {
             </div>
           </div>
           <div className={editStyle.content}>
-            {`${allBooks.title} - ${allBooks.title}`}
+            {`${allBooks.title} - ${allBooks.author}`}
 
             <div className={editStyle.comment}>
               <div className={editStyle.wrapper}>
@@ -59,7 +61,7 @@ function Edit({ exit, bookID }) {
                   </form>
                 </div>
                 <div className={editStyle.bookCover}>
-                  <img src={bookCover} alt="bookCover" />
+                  <img src={allBooks.cover} alt="bookCover" />
                 </div>
                 <div className={editStyle.finishDate}>
                   <form>
