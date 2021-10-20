@@ -2,11 +2,12 @@
 
 .addComponent {
   position: absolute;
-  height: 80%;
-  width: 80%;
-  margin: auto;
   max-width: 850px;
+  max-height: 80%;
+  width: fit-content;
+  margin: auto;
   font-family: GentiumBookBasic-Regular;
+  padding: 10px;
 }
 
 .header,
@@ -49,10 +50,15 @@
 
 .booksContainer {
   justify-content: center;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, 150px);
-  grid-gap: 40px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
   padding: 10px;
+}
+
+.addImg {
+  cursor: pointer;
 }
 
 //Footer
@@ -87,21 +93,6 @@ button:disabled:hover {
   text-decoration: none;
 }
 
-//Meda Queries
-$breakpoints: (
-  1024px: 140px,
-  768px: 130px,
-  480px: 100px,
-);
-
-@each $width, $margin in $breakpoints {
-  @media screen and (max-width: $width) {
-    .booksContainer {
-      grid-template-columns: repeat(auto-fill, $margin);
-    }
-  }
-}
-
 @media screen and (max-width: 768px) {
   button {
     font-size: 14px;
@@ -118,12 +109,4 @@ $breakpoints: (
   .xButton {
     font-size: 30px;
   }
-
-  .booksContainer{
-    grid-gap: 15px;
-  }
-} ;
-
-.addImg{
-  cursor: pointer;
 }
