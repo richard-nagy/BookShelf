@@ -20,9 +20,11 @@ function App() {
 
   const setShowEditFunction = () => {
     setShowEdit(false);
+    appContainer = appStyles.appContainerScrollable;
   };
   const setShowAddFunction = () => {
     setShowAdd(false);
+    appContainer = appStyles.appContainerScrollable;
   };
   const setYearsArrayFunction = (value) => {
     setYearsArray([...value]);
@@ -72,6 +74,7 @@ function App() {
                   className={appStyles.darkOverlay}
                   onClick={() => {
                     setShowAdd(false);
+                    appContainer = appStyles.appContainerScrollable;
                   }}
                 />
                 <Add exit={setShowAddFunction} />
@@ -85,6 +88,7 @@ function App() {
                   className={appStyles.darkOverlay}
                   onClick={() => {
                     setShowEdit(false);
+                    appContainer = appStyles.appContainerScrollable;
                   }}
                 />
                 <Edit exit={setShowEditFunction} bookID={editBookID} />
@@ -189,7 +193,6 @@ function App() {
               ))
             }
           </div>
-          <div className={appStyles.footer}></div>
         </div>
       )}
     </>
