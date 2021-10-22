@@ -5,10 +5,10 @@ import firebase from "./util/firebase";
 
 let covers = [];
 
-function Add({ exit }) {
-  const [selectBook, setSelectBook] = useState("");
+function Add({ exit, booksData, usersData }) {
+  const [selectedBookID, setSelectedBookID] = useState("");
   const [books, setBooks] = useState(undefined);
-  const setBooksFunction = (data) => {
+  const setBooksFunc = (data) => {
     setBooks(data);
   };
 
@@ -17,25 +17,21 @@ function Add({ exit }) {
       const userBooks = [];
       const allBooks = [];
 
-      const usersRef = firebase.database().ref("users/00/books");
-      const usersSnapshot = await usersRef.once("value");
-      const usersValue = usersSnapshot.val();
+      const usersValue = usersData;
       for (let id in usersValue) {
         userBooks.push(usersValue[id].bookID);
       }
-
-      const booksRef = firebase.database().ref("allBooks");
-      const booksSnapshot = await booksRef.once("value");
-      const booksValue = booksSnapshot.val();
+      
+      const booksValue = booksData;
       for (let id in booksValue) {
         allBooks.push(booksValue[id].bookID);
         covers.push(booksValue[id].cover);
       }
 
-      setBooksFunction(allBooks.filter((val) => !userBooks.includes(val)));
+      setBooksFunc(allBooks.filter((val) => !userBooks.includes(val)));
     }
     pullData();
-  }, []);
+  }, [booksData, usersData]);
 
   return (
     <>
@@ -55,7 +51,7 @@ function Add({ exit }) {
                   className={addStyles.addImg}
                   src={covers[parseInt(books[key])]}
                   alt="BookCover"
-                  onClick={() => setSelectBook(books[key])}
+                  onClick={() => setSelectedBookID(books[key])}
                 />
               ))}
             </div>
@@ -65,16 +61,17 @@ function Add({ exit }) {
               onClick={() => {
                 const userBooksRef = firebase.database().ref("users/00/books");
                 const dt = new Date();
-                userBooksRef.child(selectBook).set({
-                  bookID: selectBook,
+                userBooksRef.child(selectedBookID).set({
+                  bookID: selectedBookID,
                   finishDate: `${dt.getFullYear()}-${dt.getMonth() + 1}-${dt.getDate()}`, // prettier-ignore
+                  note: "",
                   stars: "0",
                   startDate: `${dt.getFullYear()}-${dt.getMonth() + 1}-${dt.getDate()}`, // prettier-ignore
                 });
-                setSelectBook("");
+                setSelectedBookID("");
                 exit();
               }}
-              disabled={selectBook === "" ? true : false}
+              disabled={selectedBookID === "" ? true : false}
             >
               Hozzáadás
             </button>

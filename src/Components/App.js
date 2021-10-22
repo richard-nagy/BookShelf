@@ -4,94 +4,111 @@ import Add from "./Add.js";
 import Edit from "./Edit.js";
 import firebase from "./util/firebase";
 
-let resultsNumber = 0;
-let appContainer = appStyles.appContainerScrollable;
-let bookYears = {};
-let books = undefined;
+let results = 0;
+let appContainerStyle = appStyles.appContainerScrollable;
 let editBookID = undefined;
-let stars = [];
-let covers = [];
+let userBooks = undefined;
+let allBooks = undefined;
 
 function App() {
-  const [activeFilter, setActiveFilter] = useState("2021");
+  const [activeFilter, setActiveFilter] = useState();
   const [yearsArray, setYearsArray] = useState([]);
   const [showEdit, setShowEdit] = useState(false);
   const [showAdd, setShowAdd] = useState(false);
+  const [books, setBooks] = useState({});
 
-  const setShowEditFunction = () => {
+  const setShowEditFunc = () => {
     setShowEdit(false);
-    appContainer = appStyles.appContainerScrollable;
+    appContainerStyle = appStyles.appContainerScrollable;
   };
-  const setShowAddFunction = () => {
+
+  const setShowAddFunc = () => {
     setShowAdd(false);
-    appContainer = appStyles.appContainerScrollable;
-  };
-  const setYearsArrayFunction = (value) => {
-    setYearsArray([...value]);
+    appContainerStyle = appStyles.appContainerScrollable;
   };
 
   useEffect(() => {
-    let userBooksFD = [];
-    let bookID = [];
+    let userBooksDate = [];
+    let booksHolder = {};
 
     async function pullData() {
       const usersRef = firebase.database().ref("users/00/books");
       const usersSnapshot = await usersRef.once("value");
       const usersValue = usersSnapshot.val();
+
       for (let id in usersValue) {
-        userBooksFD.push(usersValue[id].finishDate.slice(0, 4));
-        bookID.push(usersValue[id].bookID);
-        stars.push(usersValue[id].stars);
+        booksHolder[id] = {
+          finishDate: usersValue[id].finishDate,
+          stars: usersValue[id].stars,
+        };
+        userBooksDate.push(usersValue[id].finishDate.slice(0, 4));
       }
 
       const booksRef = firebase.database().ref("allBooks");
       const booksSnapshot = await booksRef.once("value");
       const booksValue = booksSnapshot.val();
-      for (let id in booksValue) {
-        covers.push(booksValue[id].cover);
+      for (let id in usersValue) {
+        booksHolder[id] = {
+          ...booksHolder[id],
+          bookID: booksValue[id].bookID,
+          cover: booksValue[id].cover,
+        };
       }
 
-      bookYears = userBooksFD;
-      books = bookID;
-      userBooksFD.join();
-      userBooksFD.sort();
-      userBooksFD = [...new Set(userBooksFD)];
-      userBooksFD.reverse();
-      setYearsArrayFunction(userBooksFD);
+      userBooksDate.join();
+      userBooksDate.sort();
+      userBooksDate = [...new Set(userBooksDate)];
+      userBooksDate.reverse();
+      setYearsArray(userBooksDate);
+      setActiveFilter(userBooksDate[0]);
+
+      setBooks(booksHolder);
+
+      allBooks = booksValue;
+      userBooks = usersValue;
     }
     pullData();
   }, [showEdit, showAdd]);
 
   return (
     <>
-      {books !== undefined && (
-        <div className={appContainer}>
+      {Object.keys(books).length !== 0 && (
+        <div className={appContainerStyle}>
           {showAdd === true &&
-            ((appContainer = appStyles.appContainerUnscrollable),
+            ((appContainerStyle = appStyles.appContainerUnscrollable),
             (
               <>
                 <div
                   className={appStyles.darkOverlay}
                   onClick={() => {
                     setShowAdd(false);
-                    appContainer = appStyles.appContainerScrollable;
+                    appContainerStyle = appStyles.appContainerScrollable;
                   }}
                 />
-                <Add exit={setShowAddFunction} />
+                <Add
+                  exit={setShowAddFunc}
+                  booksData={allBooks}
+                  usersData={userBooks}
+                />
               </>
             ))}
           {showEdit === true &&
-            ((appContainer = appStyles.appContainerUnscrollable),
+            ((appContainerStyle = appStyles.appContainerUnscrollable),
             (
               <>
                 <div
                   className={appStyles.darkOverlay}
                   onClick={() => {
                     setShowEdit(false);
-                    appContainer = appStyles.appContainerScrollable;
+                    appContainerStyle = appStyles.appContainerScrollable;
                   }}
                 />
-                <Edit exit={setShowEditFunction} bookID={editBookID} />
+                <Edit
+                  exit={setShowEditFunc}
+                  booksData={allBooks[editBookID]}
+                  usersData={userBooks[editBookID]}
+                  bookID={editBookID}
+                />
               </>
             ))}
           <div className={appStyles.header}>
@@ -137,7 +154,7 @@ function App() {
                       }
                       onClick={() => {
                         setActiveFilter(yearsArray[key]);
-                        appContainer = appStyles.appContainerScrollable;
+                        appContainerStyle = appStyles.appContainerScrollable;
                       }}
                     >
                       <>{keyName}</>
@@ -151,34 +168,42 @@ function App() {
                 {activeFilter === "All" ? "Összes" : activeFilter}
               </div>
               &nbsp;
-              <div className={appStyles.bookResultsNmbr}>{resultsNumber}</div>
+              <div className={appStyles.bookResultsNmbr}>{results}</div>
             </div>
             {
-              ((resultsNumber = 0),
+              /* Books Container */
+              ((results = 0),
               (
                 <div className={appStyles.booksContainer}>
-                  {Object.keys(bookYears).map(
+                  {Object.keys(books).map(
                     (keyName, key) =>
-                      (activeFilter === "All" ||
-                        bookYears[key] === activeFilter) &&
-                      ((resultsNumber += 1),
+                      ("All" === activeFilter ||
+                        books[keyName].finishDate.slice(0, 4) ===
+                          activeFilter) &&
+                      ((results += 1),
                       (
                         <div
                           className={appStyles.booksStars}
                           key={key}
                           onClick={() => {
+                            editBookID = books[keyName].bookID;
                             setShowEdit(true);
-                            editBookID = books[key];
                           }}
                         >
-                          <img src={covers[key]} alt="BookCover" />
+                          {/* Book Image */}
+                          <img
+                            src={books[keyName].cover}
+                            alt="BookCover"
+                          />
+
+                          {/* Stars */}
                           <div className={appStyles.stars}>
-                            {[...Array(parseInt(stars[key]))].map(
-                              (el, index) => "★"
-                            )}
-                            {[...Array(5 - parseInt(stars[key]))].map(
-                              (el, index) => "☆"
-                            )}
+                            {
+                              [...Array(parseInt(books[keyName].stars))].map((el, index) => "★") // prettier-ignore
+                            }
+                            {
+                              [...Array(5 - parseInt(books[keyName].stars))].map((el, index) => "☆") // prettier-ignore
+                            }
                           </div>
                         </div>
                       ))

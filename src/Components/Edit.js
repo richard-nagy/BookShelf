@@ -2,35 +2,26 @@ import React, { useEffect, useState } from "react";
 import editStyle from "./Edit.module.scss";
 import firebase from "./util/firebase";
 
-let fDate = undefined;
-let sDate = undefined;
+let finishDate = undefined;
+let startDate = undefined;
 let note = undefined;
 
-function Edit({ exit, bookID }) {
+function Edit({ exit, booksData, usersData, bookID }) {
   const [allBooks, setAllBooks] = useState(undefined);
   const [usersBooks, setUsersBooks] = useState(undefined);
-  const [stars, setStars] = useState("5");
+  const [stars, setStars] = useState();
 
   useEffect(() => {
     async function pullData() {
-      const usersRef = firebase.database().ref("users/00/books");
-      const usersSnapshot = await usersRef.once("value");
-      const usersValue = usersSnapshot.val()[bookID];
-
-      note = usersValue.note;
-      sDate = usersValue.starDate;
-      fDate = usersValue.finishDate;
-      setStars(usersValue.stars);
-      setUsersBooks(usersValue);
-
-      const booksRef = firebase.database().ref("allBooks");
-      const booksSnapshot = await booksRef.once("value");
-      const booksValue = booksSnapshot.val()[bookID];
-      setAllBooks(booksValue);
+      setAllBooks(booksData);
+      setStars(usersData.stars);
+      setUsersBooks(usersData);
+      note = usersData.note;
+      startDate = usersData.startDate;
+      finishDate = usersData.finishDate;
     }
-
     pullData();
-  }, [bookID]);
+  }, [booksData, usersData]);
 
   return (
     <>
@@ -56,7 +47,7 @@ function Edit({ exit, bookID }) {
                       type="date"
                       name="finish"
                       defaultValue={usersBooks.startDate}
-                      onChange={(e) => (sDate = e.target.value)}
+                      onChange={(e) => (startDate = e.target.value)}
                     />
                   </form>
                 </div>
@@ -70,8 +61,8 @@ function Edit({ exit, bookID }) {
                     <input
                       type="date"
                       name="end"
-                      defaultValue={fDate}
-                      onChange={(e) => (fDate = e.target.value)}
+                      defaultValue={finishDate}
+                      onChange={(e) => (finishDate = e.target.value)}
                     />
                   </form>
                 </div>
@@ -130,9 +121,9 @@ function Edit({ exit, bookID }) {
                 const userBooksRef = firebase.database().ref("users/00/books");
                 userBooksRef.child(bookID).set({
                   bookID: bookID,
-                  finishDate: fDate,
+                  finishDate: finishDate,
                   stars: stars,
-                  startDate: sDate,
+                  startDate: startDate,
                   note: note,
                 });
                 exit();
