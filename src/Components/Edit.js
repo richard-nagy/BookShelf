@@ -6,7 +6,7 @@ let finishDate = undefined;
 let startDate = undefined;
 let note = undefined;
 
-function Edit({ exit, booksData, usersData, bookID }) {
+function Edit({ exit, booksData, usersData, bookID, lang }) {
   const [allBooks, setAllBooks] = useState(undefined);
   const [usersBooks, setUsersBooks] = useState(undefined);
   const [stars, setStars] = useState();
@@ -28,7 +28,7 @@ function Edit({ exit, booksData, usersData, bookID }) {
       {[allBooks, usersBooks].includes(undefined) === false && (
         <div className={editStyle.addComponent}>
           <div className={editStyle.header}>
-            <div>Könyv Beállítások</div>
+            <div>{lang.bookSettings}</div>
             <div onClick={exit} className={editStyle.xButton}>
               +
             </div>
@@ -41,7 +41,9 @@ function Edit({ exit, booksData, usersData, bookID }) {
                 <div className={editStyle.startingDate}>
                   <form>
                     <label htmlFor="finish">
-                      <div className={editStyle.dateText}>Kezdés:</div>
+                      <div className={editStyle.dateText}>
+                        {lang.beginning}:
+                      </div>
                     </label>
                     <input
                       type="date"
@@ -56,7 +58,7 @@ function Edit({ exit, booksData, usersData, bookID }) {
                 </div>
                 <div className={editStyle.finishDate}>
                   <form>
-                    <div className={editStyle.dateText}>Befejezve:</div>
+                    <div className={editStyle.dateText}>{lang.completion}:</div>
                     <label htmlFor="end" />
                     <input
                       type="date"
@@ -67,7 +69,7 @@ function Edit({ exit, booksData, usersData, bookID }) {
                   </form>
                 </div>
                 <div>
-                  <div className={editStyle.starsText}>Értékelés:</div>
+                  <div className={editStyle.starsText}>{lang.rating}:</div>
                   <div className={editStyle.stars2}>
                     <div className={editStyle.stars}>
                       {[...Array(5)]
@@ -98,7 +100,7 @@ function Edit({ exit, booksData, usersData, bookID }) {
                 </div>
               </div>
             </div>
-            <div className={editStyle.comment}>Megjegyzés:</div>
+            <div className={editStyle.comment}>{lang.note}:</div>
             <div>
               <textarea
                 defaultValue={note}
@@ -114,7 +116,7 @@ function Edit({ exit, booksData, usersData, bookID }) {
                 exit();
               }}
             >
-              Törlés
+              {lang.delete}
             </button>
             <button
               onClick={() => {
@@ -129,7 +131,7 @@ function Edit({ exit, booksData, usersData, bookID }) {
                 exit();
               }}
             >
-              Mentés
+              {lang.save}
             </button>
           </div>
         </div>

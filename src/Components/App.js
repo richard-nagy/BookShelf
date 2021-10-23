@@ -3,15 +3,48 @@ import appStyles from "./App.module.scss";
 import Add from "./Add.js";
 import Edit from "./Edit.js";
 import firebase from "./util/firebase";
+import huFlag from "../pictures/hu.png";
+import enFlag from "../pictures/en.png";
 
 let results = 0;
 let appContainerStyle = appStyles.appContainerScrollable;
 let editBookID = undefined;
 let userBooks = undefined;
 let allBooks = undefined;
+let words = {
+  en: {
+    flag: enFlag,
+    annualBreakdown: "Annual Breakdown",
+    all: "All",
+    bookSettings: "Book Settings",
+    beginning: "Beginning",
+    completion: "Completion",
+    note: "Note",
+    rating: "Rating",
+    delete: "Delete",
+    save: "Save",
+    addBook: "Add Book",
+    add: "Add",
+  },
+  hu: {
+    flag: huFlag,
+    annualBreakdown: "Éves Bontás",
+    all: "Összes",
+    bookSettings: "Könyv Beállítások",
+    beginning: "Kezdés",
+    completion: "Befejezés",
+    note: "Megjegyzés",
+    rating: "Értékelés",
+    delete: "Törlés",
+    save: "Mentés",
+    addBook: "Könyv Hozzáadása",
+    add: "Hozzáadás",
+  },
+};
 
 function App() {
-  const [activeFilter, setActiveFilter] = useState();
+  const [language, setLanguage] = useState(words.hu);
+  const [activeFilter, setActiveFilter] = useState(undefined);
   const [yearsArray, setYearsArray] = useState([]);
   const [showEdit, setShowEdit] = useState(false);
   const [showAdd, setShowAdd] = useState(false);
@@ -60,7 +93,7 @@ function App() {
       userBooksDate = [...new Set(userBooksDate)];
       userBooksDate.reverse();
       setYearsArray(userBooksDate);
-      setActiveFilter(userBooksDate[0]);
+      if (results === 0) setActiveFilter(userBooksDate[0]);
 
       setBooks(booksHolder);
 
@@ -89,6 +122,7 @@ function App() {
                   exit={setShowAddFunc}
                   booksData={allBooks}
                   usersData={userBooks}
+                  lang={language}
                 />
               </>
             ))}
@@ -108,6 +142,7 @@ function App() {
                   booksData={allBooks[editBookID]}
                   usersData={userBooks[editBookID]}
                   bookID={editBookID}
+                  lang={language}
                 />
               </>
             ))}
@@ -115,6 +150,28 @@ function App() {
             <div className={appStyles.menu}>
               <div className={appStyles.logo} unselectable="on">
                 BookShelf
+              </div>
+              <div className={appStyles.dropdown}>
+                <div className={appStyles.languages}>
+                  <img
+                    src={language.flag}
+                    alt="languageFlag"
+                    className={appStyles.flag}
+                  />
+                </div>
+                <div
+                  className={appStyles.lang}
+                  onClick={() => setLanguage(words.hu)}
+                >
+                  <img src={huFlag} alt="huFlag" className={appStyles.flag} />
+                </div>
+                <div
+                  className={appStyles.lang}
+                  id={appStyles.en}
+                  onClick={() => setLanguage(words.en)}
+                >
+                  <img src={enFlag} alt="enFlag" className={appStyles.flag} />
+                </div>
               </div>
             </div>
           </div>
@@ -128,7 +185,7 @@ function App() {
                 }
                 onClick={() => setActiveFilter(yearsArray[0])}
               >
-                Éves Bontás
+                {language.annualBreakdown}
               </div>
               <div
                 className={
@@ -138,7 +195,7 @@ function App() {
                 }
                 onClick={() => setActiveFilter("All")}
               >
-                Összes
+                {language.all}
               </div>
             </div>
             <div className={appStyles.optionDivider} />
@@ -165,7 +222,7 @@ function App() {
             )}
             <div className={appStyles.bookResults}>
               <div className={appStyles.bookResultsYear}>
-                {activeFilter === "All" ? "Összes" : activeFilter}
+                {activeFilter === "All" ? language.all : activeFilter}
               </div>
               &nbsp;
               <div className={appStyles.bookResultsNmbr}>{results}</div>
@@ -191,10 +248,7 @@ function App() {
                           }}
                         >
                           {/* Book Image */}
-                          <img
-                            src={books[keyName].cover}
-                            alt="BookCover"
-                          />
+                          <img src={books[keyName].cover} alt="BookCover" />
 
                           {/* Stars */}
                           <div className={appStyles.stars}>

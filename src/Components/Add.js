@@ -5,7 +5,7 @@ import firebase from "./util/firebase";
 
 let covers = [];
 
-function Add({ exit, booksData, usersData }) {
+function Add({ exit, booksData, usersData, lang }) {
   const [selectedBookID, setSelectedBookID] = useState("");
   const [books, setBooks] = useState(undefined);
   const setBooksFunc = (data) => {
@@ -38,7 +38,7 @@ function Add({ exit, booksData, usersData }) {
       {books !== undefined && (
         <div className={addStyles.addComponent}>
           <div className={addStyles.header}>
-            <div>Könyv Hozzáadása</div>
+            <div>{lang.addBook}</div>
             <div onClick={exit} className={addStyles.xButton}>
               +
             </div>
@@ -73,7 +73,7 @@ function Add({ exit, booksData, usersData }) {
               }}
               disabled={selectedBookID === "" ? true : false}
             >
-              Hozzáadás
+              {lang.add}
             </button>
           </div>
         </div>

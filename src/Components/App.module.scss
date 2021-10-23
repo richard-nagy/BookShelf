@@ -47,6 +47,7 @@ body {
   display: flex;
   justify-content: space-between;
   box-sizing: border-box;
+  align-items: center;
   color: white;
   width: 80%;
   max-width: 1100px;
@@ -64,6 +65,44 @@ body {
   -moz-user-select: none; /* Firefox */
   -ms-user-select: none; /* IE10+/Edge */
   user-select: none; /* Standard */
+}
+
+.dropdown {
+  cursor: pointer;
+  background-color: white;
+  color: $base-green;
+}
+
+.languages {
+  padding: 5px;
+  border: 1px solid $base-green;
+  border-bottom: 0px;
+}
+
+.lang {
+  background-color: white;
+  border: 1px solid $base-green;
+  display: none;
+  position: fixed;
+  padding: 5px;
+}
+
+.lang#en {
+  margin-top: 31px;
+}
+
+.dropdown:hover .lang {
+  display: inline;
+}
+
+.lang:hover {
+  background-color: $base-green;
+  color: white;
+}
+
+.flag {
+  width: 40px;
+  box-shadow: none;
 }
 
 //Content ↴
@@ -291,9 +330,22 @@ $breakpoints: (
 
   .logo {
     font-size: 20px;
+    margin-top: -15px;
   }
 
   .srcDivider {
     height: 3px;
+  }
+
+  .dropdown {
+    margin-top: -15px;
+  }
+
+  .flag {
+    width: 30px;
+  }
+
+  .lang#en {
+    margin-top: 26px;
   }
 }
