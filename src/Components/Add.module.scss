@@ -8,6 +8,7 @@
   margin: auto;
   font-family: GentiumBookBasic-Regular;
   padding: 10px;
+  min-width: 300px;
 }
 
 .header,
@@ -49,7 +50,6 @@
 }
 
 .booksContainer {
-  justify-content: center;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;

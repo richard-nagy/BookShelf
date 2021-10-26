@@ -108,7 +108,6 @@ body {
 //Content 
 .content {
   font-family: GentiumBookBasic-Regular;
-  display: fixed;
   height: fit-content;
   background-color: white;
   border-radius: 10px;
@@ -310,10 +309,6 @@ $breakpoints: (
 
   .content {
     padding: 10px;
-  }
-
-  .bookContainer {
-    grid-gap: 15px;
   }
 
   .menuItemsDesktop {
