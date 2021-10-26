@@ -12,6 +12,7 @@ function Edit({ exit, booksData, usersData, bookID, lang }) {
   const [stars, setStars] = useState();
 
   useEffect(() => {
+    // Retrive data
     async function pullData() {
       setAllBooks(booksData);
       setStars(usersData.stars);
@@ -25,17 +26,19 @@ function Edit({ exit, booksData, usersData, bookID, lang }) {
 
   return (
     <>
+      {/* Wait till tha data arrives */}
       {[allBooks, usersBooks].includes(undefined) === false && (
         <div className={editStyle.addComponent}>
+          {/* Header */}
           <div className={editStyle.header}>
             <div>{lang.bookSettings}</div>
             <div onClick={exit} className={editStyle.xButton}>
               +
             </div>
           </div>
+          {/* Content */}
           <div className={editStyle.content}>
             {`${allBooks.title} - ${allBooks.author}`}
-
             <div className={editStyle.comment}>
               <div className={editStyle.wrapper}>
                 <div className={editStyle.startingDate}>
@@ -69,8 +72,9 @@ function Edit({ exit, booksData, usersData, bookID, lang }) {
                   </form>
                 </div>
                 <div>
-                  <div className={editStyle.starsText}>{lang.rating}:</div>
-                  <div className={editStyle.stars2}>
+                  {/* Staring system */}
+                  {lang.rating}:
+                  <div className={editStyle.starsContainer}>
                     <div className={editStyle.stars}>
                       {[...Array(5)]
                         .slice(0)
@@ -109,6 +113,7 @@ function Edit({ exit, booksData, usersData, bookID, lang }) {
             </div>
           </div>
           <div className={editStyle.footer}>
+            {/* onClick delete book from user */}
             <button
               onClick={() => {
                 const userBooksRef = firebase.database().ref("users/00/books");
@@ -118,6 +123,7 @@ function Edit({ exit, booksData, usersData, bookID, lang }) {
             >
               {lang.delete}
             </button>
+            {/* onClick push changes to user book */}
             <button
               onClick={() => {
                 const userBooksRef = firebase.database().ref("users/00/books");

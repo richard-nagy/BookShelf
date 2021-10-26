@@ -50,11 +50,13 @@ function App() {
   const [showAdd, setShowAdd] = useState(false);
   const [books, setBooks] = useState({});
 
+  // Close Edit component
   const setShowEditFunc = () => {
     setShowEdit(false);
     appContainerStyle = appStyles.appContainerScrollable;
   };
 
+  // Close Add component
   const setShowAddFunc = () => {
     setShowAdd(false);
     appContainerStyle = appStyles.appContainerScrollable;
@@ -64,6 +66,7 @@ function App() {
     let userBooksDate = [];
     let booksHolder = {};
 
+    // Retrive data from firebase
     async function pullData() {
       const usersRef = firebase.database().ref("users/00/books");
       const usersSnapshot = await usersRef.once("value");
@@ -88,15 +91,17 @@ function App() {
         };
       }
 
+      // Remove duplicates, and sort years
       userBooksDate.join();
       userBooksDate.sort();
       userBooksDate = [...new Set(userBooksDate)];
       userBooksDate.reverse();
       setYearsArray(userBooksDate);
+
+      // When the site is opened, set active filter as the highest year
       if (results === 0) setActiveFilter(userBooksDate[0]);
 
       setBooks(booksHolder);
-
       allBooks = booksValue;
       userBooks = usersValue;
     }
@@ -105,12 +110,15 @@ function App() {
 
   return (
     <>
+      {/* Wait till tha data arrives */}
       {Object.keys(books).length !== 0 && (
+
         <div className={appContainerStyle}>
           {showAdd === true &&
             ((appContainerStyle = appStyles.appContainerUnscrollable),
             (
               <>
+                {/* Dark overlay */}
                 <div
                   className={appStyles.darkOverlay}
                   onClick={() => {
@@ -118,6 +126,7 @@ function App() {
                     appContainerStyle = appStyles.appContainerScrollable;
                   }}
                 />
+                {/* Add component */}
                 <Add
                   exit={setShowAddFunc}
                   booksData={allBooks}
@@ -126,10 +135,12 @@ function App() {
                 />
               </>
             ))}
+
           {showEdit === true &&
             ((appContainerStyle = appStyles.appContainerUnscrollable),
             (
               <>
+                {/* Dark overlay */}
                 <div
                   className={appStyles.darkOverlay}
                   onClick={() => {
@@ -137,6 +148,7 @@ function App() {
                     appContainerStyle = appStyles.appContainerScrollable;
                   }}
                 />
+                {/* Edit component */}
                 <Edit
                   exit={setShowEditFunc}
                   booksData={allBooks[editBookID]}
@@ -146,11 +158,14 @@ function App() {
                 />
               </>
             ))}
+          {/* Header */}
           <div className={appStyles.header}>
             <div className={appStyles.menu}>
+              {/* Logo */}
               <div className={appStyles.logo} unselectable="on">
                 BookShelf
               </div>
+              {/* Language selector */}
               <div className={appStyles.dropdown}>
                 <div className={appStyles.languages}>
                   <img
@@ -175,8 +190,10 @@ function App() {
               </div>
             </div>
           </div>
+          {/* Content */}
           <div className={appStyles.content}>
             <div className={appStyles.optionsContainer}>
+              {/* Filters */}
               <div
                 className={
                   activeFilter !== "All"
@@ -199,6 +216,7 @@ function App() {
               </div>
             </div>
             <div className={appStyles.optionDivider} />
+            {/* List of years */}
             {activeFilter !== "All" && (
               <div className={appStyles.yearsContainer}>
                 {yearsArray.map((keyName, key) => (
@@ -220,6 +238,7 @@ function App() {
                 ))}
               </div>
             )}
+            {/* Number of results */}
             <div className={appStyles.bookResults}>
               <div className={appStyles.bookResultsYear}>
                 {activeFilter === "All" ? language.all : activeFilter}
@@ -229,9 +248,11 @@ function App() {
             </div>
             {
               /* Books Container */
-              ((results = 0),
+              ((results = 0), //reset the results number
               (
                 <div className={appStyles.booksContainer}>
+                  {/* Show All books if we are on all,
+                  or only show years selected year books */}
                   {Object.keys(books).map(
                     (keyName, key) =>
                       ("All" === activeFilter ||
@@ -239,6 +260,7 @@ function App() {
                           activeFilter) &&
                       ((results += 1),
                       (
+                        // onClick open Edit component
                         <div
                           className={appStyles.booksStars}
                           key={key}
@@ -247,22 +269,17 @@ function App() {
                             setShowEdit(true);
                           }}
                         >
-                          {/* Book Image */}
                           <img src={books[keyName].cover} alt="BookCover" />
-
                           {/* Stars */}
                           <div className={appStyles.stars}>
-                            {
-                              [...Array(parseInt(books[keyName].stars))].map((el, index) => "★") // prettier-ignore
-                            }
-                            {
-                              [...Array(5 - parseInt(books[keyName].stars))].map((el, index) => "☆") // prettier-ignore
-                            }
+                            {[...Array(parseInt(books[keyName].stars))].map((el, index) => "★")}
+                            {[...Array(5 - parseInt(books[keyName].stars))].map((el, index) => "☆")}
                           </div>
                         </div>
                       ))
                   )}
                   <div
+                    // onClick open Add component
                     className={appStyles.addBook}
                     onClick={() => setShowAdd(true)}
                   >

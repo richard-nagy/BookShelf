@@ -8,11 +8,9 @@ let covers = [];
 function Add({ exit, booksData, usersData, lang }) {
   const [selectedBookID, setSelectedBookID] = useState("");
   const [books, setBooks] = useState(undefined);
-  const setBooksFunc = (data) => {
-    setBooks(data);
-  };
 
   useEffect(() => {
+    // Retrive data
     async function pullData() {
       const userBooks = [];
       const allBooks = [];
@@ -21,30 +19,36 @@ function Add({ exit, booksData, usersData, lang }) {
       for (let id in usersValue) {
         userBooks.push(usersValue[id].bookID);
       }
-      
+
       const booksValue = booksData;
       for (let id in booksValue) {
         allBooks.push(booksValue[id].bookID);
         covers.push(booksValue[id].cover);
       }
 
-      setBooksFunc(allBooks.filter((val) => !userBooks.includes(val)));
+      //Execlude books, that the user already have
+      setBooks(allBooks.filter((val) => !userBooks.includes(val)));
     }
     pullData();
   }, [booksData, usersData]);
 
   return (
     <>
+      {/* Wait till tha data arrives */}
       {books !== undefined && (
         <div className={addStyles.addComponent}>
+
+          {/* Header */}
           <div className={addStyles.header}>
-            <div>{lang.addBook}</div>
+            <div>{lang.addBook}&nbsp;</div>
             <div onClick={exit} className={addStyles.xButton}>
               +
             </div>
           </div>
+          {/* Content */}
           <div className={addStyles.content}>
             <div className={addStyles.booksContainer}>
+              {/* List books */}
               {Object.keys(books).map((keyName, key) => (
                 <img
                   key={key}
@@ -56,21 +60,24 @@ function Add({ exit, booksData, usersData, lang }) {
               ))}
             </div>
           </div>
+          {/* Footer */}
           <div className={addStyles.footer}>
             <button
+              // onClick push the slected book to the user books
               onClick={() => {
                 const userBooksRef = firebase.database().ref("users/00/books");
                 const dt = new Date();
                 userBooksRef.child(selectedBookID).set({
                   bookID: selectedBookID,
-                  finishDate: `${dt.getFullYear()}-${dt.getMonth() + 1}-${dt.getDate()}`, // prettier-ignore
+                  finishDate: `${dt.getFullYear()}-${dt.getMonth() + 1}-${dt.getDate()}`,
                   note: "",
                   stars: "0",
-                  startDate: `${dt.getFullYear()}-${dt.getMonth() + 1}-${dt.getDate()}`, // prettier-ignore
+                  startDate: `${dt.getFullYear()}-${dt.getMonth() + 1}-${dt.getDate()}`,
                 });
                 setSelectedBookID("");
                 exit();
               }}
+              // Cant click the button until a book is selected
               disabled={selectedBookID === "" ? true : false}
             >
               {lang.add}

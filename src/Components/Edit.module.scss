@@ -59,30 +59,42 @@
   grid-template-columns: auto 1fr;
   gap: 10px;
 }
+
 .startingDate {
   grid-column: 2;
   grid-row: 1;
 }
+
 .bookCover {
   grid-column: 1;
   grid-row: 1 / 4;
 }
+
 .finishDate {
   grid-column: 2;
   grid-row: 2;
 }
+
+.dateText {
+  margin-bottom: 5px;
+}
+
+.starsContainer {
+  display: flex;
+}
+
 .stars {
   grid-column: 2;
   grid-row: 3;
   display: flex;
   align-items: center;
 }
-.stars2{
-  display: flex;
-}
 
-.dateText {
-  margin-bottom: 5px;
+.starsNull {
+  color: $base-green;
+  font-size: 24px;
+  cursor: pointer;
+  padding-top: 9px;
 }
 
 //Footer
@@ -134,13 +146,6 @@ textarea:focus {
   display: none;
 }
 
-.starsNull {
-  color: $base-green;
-  font-size: 24px;
-  cursor: pointer;
-  padding-top: 9px;
-}
-
 .label,
 .label label {
   font-size: 30px;
@@ -183,10 +188,6 @@ textarea:focus {
   .starsNull {
     font-size: 22px;
     margin-top: 5px;
-  }
-
-  .stuff {
-    font-size: 16px;
   }
 }
 

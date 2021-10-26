@@ -5,7 +5,7 @@
   flex-direction: row;
 }
 
-//Base Website ↴
+//Base Website 
 html,
 body {
   margin: 0;
@@ -33,7 +33,7 @@ body {
   background-color: #0000007f;
 }
 
-//Header ↴
+//Header 
 .header {
   justify-content: center;
   background-color: $base-green;
@@ -105,7 +105,7 @@ body {
   box-shadow: none;
 }
 
-//Content ↴
+//Content 
 .content {
   font-family: GentiumBookBasic-Regular;
   display: fixed;
@@ -263,7 +263,7 @@ img {
   color: $pale-green;
 }
 
-//Meda Queries ↴
+//Meda Queries 
 $breakpoints: (
   1024px: 230px,
   768px: 210px,
