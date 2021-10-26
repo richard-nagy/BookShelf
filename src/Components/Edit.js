@@ -116,7 +116,7 @@ function Edit({ exit, booksData, usersData, bookID, lang }) {
             {/* onClick delete book from user */}
             <button
               onClick={() => {
-                const userBooksRef = firebase.database().ref("users/00/books");
+                const userBooksRef = firebase.database().ref("users/0/books");
                 userBooksRef.child(bookID).set(null);
                 exit();
               }}
@@ -126,7 +126,7 @@ function Edit({ exit, booksData, usersData, bookID, lang }) {
             {/* onClick push changes to user book */}
             <button
               onClick={() => {
-                const userBooksRef = firebase.database().ref("users/00/books");
+                const userBooksRef = firebase.database().ref("users/0/books");
                 userBooksRef.child(bookID).set({
                   bookID: bookID,
                   finishDate: finishDate,

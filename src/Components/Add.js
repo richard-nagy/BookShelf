@@ -15,15 +15,13 @@ function Add({ exit, booksData, usersData, lang }) {
       const userBooks = [];
       const allBooks = [];
 
-      const usersValue = usersData;
-      for (let id in usersValue) {
-        userBooks.push(usersValue[id].bookID);
+      for (let id in usersData) {
+        userBooks.push(usersData[id].bookID);
       }
 
-      const booksValue = booksData;
-      for (let id in booksValue) {
-        allBooks.push(booksValue[id].bookID);
-        covers.push(booksValue[id].cover);
+      for (let id in booksData) {
+        allBooks.push(booksData[id].bookID);
+        covers.push(booksData[id].cover);
       }
 
       //Execlude books, that the user already have
@@ -50,13 +48,15 @@ function Add({ exit, booksData, usersData, lang }) {
             <div className={addStyles.booksContainer}>
               {/* List books */}
               {Object.keys(books).map((keyName, key) => (
-                <img
-                  key={key}
-                  className={addStyles.addImg}
-                  src={covers[parseInt(books[key])]}
-                  alt="BookCover"
-                  onClick={() => setSelectedBookID(books[key])}
-                />
+                <div>
+                  <img
+                    key={key}
+                    className={addStyles.addImg}
+                    src={covers[parseInt(books[key])]}
+                    alt="BookCover"
+                    onClick={() => setSelectedBookID(books[key])}
+                  />
+                </div>
               ))}
             </div>
           </div>
@@ -65,7 +65,7 @@ function Add({ exit, booksData, usersData, lang }) {
             <button
               // onClick push the slected book to the user books
               onClick={() => {
-                const userBooksRef = firebase.database().ref("users/00/books");
+                const userBooksRef = firebase.database().ref("users/0/books");
                 const dt = new Date();
                 userBooksRef.child(selectedBookID).set({
                   bookID: selectedBookID,

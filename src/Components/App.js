@@ -68,7 +68,7 @@ function App() {
 
     // Retrive data from firebase
     async function pullData() {
-      const usersRef = firebase.database().ref("users/00/books");
+      const usersRef = firebase.database().ref("users/0/books")	;
       const usersSnapshot = await usersRef.once("value");
       const usersValue = usersSnapshot.val();
 
@@ -112,7 +112,6 @@ function App() {
     <>
       {/* Wait till tha data arrives */}
       {Object.keys(books).length !== 0 && (
-
         <div className={appContainerStyle}>
           {showAdd === true &&
             ((appContainerStyle = appStyles.appContainerUnscrollable),
@@ -272,8 +271,8 @@ function App() {
                           <img src={books[keyName].cover} alt="BookCover" />
                           {/* Stars */}
                           <div className={appStyles.stars}>
-                            {[...Array(parseInt(books[keyName].stars))].map((el, index) => "★")}
-                            {[...Array(5 - parseInt(books[keyName].stars))].map((el, index) => "☆")}
+                            {[...Array(parseInt(books[keyName].stars))].map(() => "★")}
+                            {[...Array(5 - parseInt(books[keyName].stars))].map(() => "☆")}
                           </div>
                         </div>
                       ))
