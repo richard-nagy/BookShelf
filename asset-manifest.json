@@ -1,21 +1,21 @@
 {
   "files": {
-    "main.css": "/BookShelf/static/css/main.7d22bde1.chunk.css",
-    "main.js": "/BookShelf/static/js/main.97d09554.chunk.js",
-    "main.js.map": "/BookShelf/static/js/main.97d09554.chunk.js.map",
+    "main.css": "/BookShelf/static/css/main.4ba83801.chunk.css",
+    "main.js": "/BookShelf/static/js/main.cbf6155e.chunk.js",
+    "main.js.map": "/BookShelf/static/js/main.cbf6155e.chunk.js.map",
     "runtime-main.js": "/BookShelf/static/js/runtime-main.db434f19.js",
     "runtime-main.js.map": "/BookShelf/static/js/runtime-main.db434f19.js.map",
-    "static/js/2.f1a35512.chunk.js": "/BookShelf/static/js/2.f1a35512.chunk.js",
-    "static/js/2.f1a35512.chunk.js.map": "/BookShelf/static/js/2.f1a35512.chunk.js.map",
+    "static/js/2.0df57fa3.chunk.js": "/BookShelf/static/js/2.0df57fa3.chunk.js",
+    "static/js/2.0df57fa3.chunk.js.map": "/BookShelf/static/js/2.0df57fa3.chunk.js.map",
     "index.html": "/BookShelf/index.html",
-    "static/css/main.7d22bde1.chunk.css.map": "/BookShelf/static/css/main.7d22bde1.chunk.css.map",
-    "static/js/2.f1a35512.chunk.js.LICENSE.txt": "/BookShelf/static/js/2.f1a35512.chunk.js.LICENSE.txt",
-    "static/media/App.module.scss": "/BookShelf/static/media/Pacifico-Regular.93cd59ff.ttf"
+    "static/css/main.4ba83801.chunk.css.map": "/BookShelf/static/css/main.4ba83801.chunk.css.map",
+    "static/js/2.0df57fa3.chunk.js.LICENSE.txt": "/BookShelf/static/js/2.0df57fa3.chunk.js.LICENSE.txt",
+    "static/media/Add.module.scss": "/BookShelf/static/media/Pacifico-Regular.93cd59ff.ttf"
   },
   "entrypoints": [
     "static/js/runtime-main.db434f19.js",
-    "static/js/2.f1a35512.chunk.js",
-    "static/css/main.7d22bde1.chunk.css",
-    "static/js/main.97d09554.chunk.js"
+    "static/js/2.0df57fa3.chunk.js",
+    "static/css/main.4ba83801.chunk.css",
+    "static/js/main.cbf6155e.chunk.js"
   ]
 }
