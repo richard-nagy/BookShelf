@@ -1,38 +1,38 @@
 # BookShelf 
-BookShelf is simple website, created by me. Its goal is to give the user the ability to organize their finished books.
+A BookShelf az egy általam készített egyszerű weboldal. Célja hogy a felhasználó az általa elolvasott könyveket tudja dokumentálni és rendszerezni.
 
-README Languages: [english][english], [magyar][magyar].
-
----
-
-#### How I worked on this project
-- I made a visual plan on Figma Design: [Dizájn Terv][Design Plans]
-- I organized my tasks on Notion: [Notion Tasks][Notion Tasks]
-- My commits were uploaded to the *develop* branch: [Develop Branch][Develop Branch]
-- The website is running with the help of Github Pages, it can be viewed here: [Weboldal][Website]
+README Nyelvek: [english][english], [magyar][magyar].
 
 ---
 
-#### How to navigate this project
-- Firebase database: [Pictures][Firebase photos]
-- Firebase request: [Code Example][Firebase request]
-- Usage of Media Query: [Code Example][Media Query]
-- Rating system with stars: [Code Example][Stars]
+#### Hogyan dolgoztam ezen a projecten
+- Készítettem egy vizuális tervet a Figma Design oldalán: [Dizájn Terv][Design Plans]
+- A feladataimat a Notion oldalán rendszereztem: [Notion Tasks][Notion Tasks]
+- A commiteket *develop* ágra töltöttem fel: [Develop Branch][Develop Branch]
+- Az weboldalt Github Pages segítségével futtatom, az oldal itt megtekinthető: [Weboldal][Website]
 
 ---
 
-#### Why I built the project this way
-
-- I tried to avoid Nodejs modules, because my goal was to showcase my Javascript and React knowledge.
-- I wished to upload my website to an online server, so anyone can see it.  I achieved this with gh-pages.
-- The site needed a database. Firebase provides free database hosting, so I had chosen this one. However, its disadvantage, that its stores data in a JSON form. Because of this, I wasn't able to showoff my SQL skills.
+#### Hogyan navigáljunk a projectban
+- Firebase adatbázis: [Képek][Firebase photos]
+- Firebase adatok lekérdezése: [Kód Példa][Firebase request]
+- Media Query alkalmazás: [Kód Példa][Media Query]
+- Értékelés rendszer csillagokkal: [Kód Példa][Stars]
 
 ---
 
-#### What I would have done differently
+#### Miért így készítettem el a projectet
 
-- I would have used automated tests, from the beginning of the development.
-- Instead of a JSON Firebase database, I would have an SQL database.
+- Törekedtem rá hogy minél kevesebb Nodejs modult használjak, mivel elsősorban a célom az volt hogy a Javascript és React tudásomat mutassam be.
+- Szerettem volna az oldalt egy online szerverre feltölteni, hogy akárki megnézhesse. Ezt a gh-pagel értem.
+- Az oldalnak szüksége volt egy adatbázisra. A Firebase-n ingyenesen lehet adatbázist megosztani, ezért ezt választottam. Hátránya viszont hogy az adatbázis, az adatokat JSON formában tárolja el. Így a projecten belül SQL tudásom megmutatására nincs lehetőségem.
+
+---
+
+#### Mit csináltam volna másként
+
+- A fejlesztés legelejétől kezdve automatált teszteket használtam volna.
+- Firebase JSON adatbázisa helyett, egy SQL adatbázist használtam volna.
 
 ---
 
@@ -109,7 +109,7 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 [Notion Tasks]: https://orchid-rat-c72.notion.site/769b9bd79b82414980ddd54c1019c385?v=39825b0cbe30429cb889741786d82690 "Notion Tasks"
 [Develop Branch]: https://github.com/BigRicsoo/BookShelf/commits/develop "Develop Branch"
 [Website]: https://bigricsoo.github.io/BookShelf/ "Website"
-[Firebase request]: https://github.com/BigRicsoo/BookShelf/blob/b889ad70a4e3373c310274c2bde7d5e8849b698b/src/Components/App.js#L70 "Code Example"
-[Media Query]: https://github.com/BigRicsoo/BookShelf/blob/b889ad70a4e3373c310274c2bde7d5e8849b698b/src/Components/App.module.scss#L266 "Code Example"
-[Stars]: https://github.com/BigRicsoo/BookShelf/blob/b889ad70a4e3373c310274c2bde7d5e8849b698b/src/Components/Edit.js#L75  "Code Example"
-[Firebase photos]: https://imgur.com/a/v4CHk3e "Pictures"
+[Firebase request]: https://github.com/BigRicsoo/BookShelf/blob/b889ad70a4e3373c310274c2bde7d5e8849b698b/src/Components/App.js#L70 "Kód Példa"
+[Media Query]: https://github.com/BigRicsoo/BookShelf/blob/b889ad70a4e3373c310274c2bde7d5e8849b698b/src/Components/App.module.scss#L266 "Kód Példa"
+[Stars]: https://github.com/BigRicsoo/BookShelf/blob/b889ad70a4e3373c310274c2bde7d5e8849b698b/src/Components/Edit.js#L75  "Kód Példa"
+[Firebase photos]: https://imgur.com/a/v4CHk3e "Képek"
