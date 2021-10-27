@@ -1,0 +1,21 @@
+@font-face {
+  font-family: Pacifico-Regular;
+  src: local(Pacifico-Regular),
+    url(../fonts/Pacifico-Regular.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: GentiumBookBasic-Regular;
+  src: local(GentiumBookBasic-Regular),
+    url(../fonts/GentiumBookBasic-Regular.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: GentiumBookBasic-Bold;
+  src: local(GentiumBookBasic-Bold),
+    url(../fonts/GentiumBookBasic-Bold.ttf) format("truetype");
+}
+
+$base-green: #317773;
+$pale-green: #a0bcbc;
+$white-green: #d0dcdc;
