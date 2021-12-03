@@ -6,7 +6,7 @@ README Languages: [english][english], [magyar][magyar].
 ---
 
 #### How I worked on this project
-- I made a visual plan on Figma Design: [Dizájn Terv][Design Plans]
+- I made a visual plan on Figma Design: [Design Plans][Design Plans]
 - I organized my tasks on Notion: [Notion Tasks][Notion Tasks]
 - My commits were uploaded to the *develop* branch: [Develop Branch][Develop Branch]
 - The website is running with the help of Github Pages, it can be viewed here: [Weboldal][Website]
