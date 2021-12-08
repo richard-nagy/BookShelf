@@ -9,7 +9,7 @@ README Languages: [english][english], [magyar][magyar].
 - I made a visual plan on Figma Design: [Design Plans][Design Plans]
 - I organized my tasks on Notion: [Notion Tasks][Notion Tasks]
 - My commits were uploaded to the *develop* branch: [Develop Branch][Develop Branch]
-- The website is running with the help of Github Pages, it can be viewed here: [Weboldal][Website]
+- The website is running with the help of Github Pages, it can be viewed here: [Website][Website]
 
 ---
 
@@ -108,7 +108,7 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 [Design Plans]: https://www.figma.com/proto/erGFEN1nLHkLh7cbiMdhNk/Book-Managin-app?node-id=205%3A1462&scaling=scale-down&page-id=0%3A1 "Dizájn Terv"
 [Notion Tasks]: https://orchid-rat-c72.notion.site/769b9bd79b82414980ddd54c1019c385?v=39825b0cbe30429cb889741786d82690 "Notion Tasks"
 [Develop Branch]: https://github.com/BigRicsoo/BookShelf/commits/develop "Develop Branch"
-[Website]: https://bigricsoo.github.io/BookShelf/ "Website"
+[Website]: https://richard-nagy.github.io/BookShelf/ "Website"
 [Firebase request]: https://github.com/BigRicsoo/BookShelf/blob/b889ad70a4e3373c310274c2bde7d5e8849b698b/src/Components/App.js#L70 "Code Example"
 [Media Query]: https://github.com/BigRicsoo/BookShelf/blob/b889ad70a4e3373c310274c2bde7d5e8849b698b/src/Components/App.module.scss#L266 "Code Example"
 [Stars]: https://github.com/BigRicsoo/BookShelf/blob/b889ad70a4e3373c310274c2bde7d5e8849b698b/src/Components/Edit.js#L75  "Code Example"
