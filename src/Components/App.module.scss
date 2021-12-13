@@ -150,28 +150,28 @@ body {
   cursor: pointer;
 }
 
-.dot {
-  composes: flexRow;
-  margin-top: 10px;
-}
-
-.dot:not(:last-child):after {
-  content: "\00a0·\00a0";
-  font-weight: bold;
-}
-
 .optionDivider {
   width: 100%;
   height: 5px;
   background-color: $base-green;
 }
 
-.yearsContainer,
-.yearsFocus {
+.yearsContainer {
   composes: flexRow;
   cursor: default;
   color: $base-green;
   font-size: 20px;
+  margin-top: 10px;
+}
+
+.yearsContainer div {
+  display: flex;
+  flex-direction: row;
+}
+
+.yearsContainer div:not(:last-child):after {
+  content: "\00a0·\00a0";
+  font-weight: bold;
 }
 
 .yearsFocus {
