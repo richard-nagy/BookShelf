@@ -1,201 +1,214 @@
 @import "./Variables.scss";
 
-.addComponent {
-  position: absolute;
-  height: fit-content;
-  max-height: 80%;
-  width: fit-content;
-  margin: auto;
-  max-width: 850px;
-  font-family: GentiumBookBasic-Regular;
-  min-width: 300px;
+.edit {
+    font-family: GentiumBookBasic-Regular;
+    max-width: 850px;
+    min-width: 300px;
+    max-height: 80%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .header,
 .footer {
-  height: 20px;
-  width: calc(100% - 20px);
-  background-color: $base-green;
-  color: white;
-  display: flex;
-  align-items: center;
-  padding: 10px;
-  font-size: 18px;
+    height: 20px;
+    width: calc(100% - 20px);
+    background-color: $base-green;
+    color: white;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    font-size: 18px;
 }
 
 //Header
 .header {
-  border-radius: 10px 10px 0 0;
-  justify-content: space-between;
+    border-radius: 10px 10px 0 0;
+    justify-content: space-between;
 }
 
 .xButton {
-  cursor: pointer;
-  color: white;
-  font-size: 45px;
-  transform: rotate(45deg);
+    cursor: pointer;
+    color: white;
+    font-size: 45px;
+    transform: rotate(45deg);
 }
 
 .xButton:hover {
-  color: lightgray;
+    color: lightgray;
 }
 
 //Content
 .content {
-  background-color: white;
-  height: 80%;
-  width: calc(100% - 20px);
-  padding: 10px;
-  overflow: auto;
-  font-size: 18px;
-  color: $base-green;
+    background-color: white;
+    height: 80%;
+    width: calc(100% - 20px);
+    padding: 10px;
+    overflow: auto;
+    font-size: 18px;
+    color: $base-green;
 }
 
 .comment {
-  margin: 10px 0 10px 0;
+    margin: 10px 0 10px 0;
 }
 
 .wrapper {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 10px;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 10px;
 }
 
 .startingDate {
-  grid-column: 2;
-  grid-row: 1;
+    grid-column: 2;
+    grid-row: 1;
 }
 
 .bookCover {
-  grid-column: 1;
-  grid-row: 1 / 4;
+    grid-column: 1;
+    grid-row: 1 / 4;
 }
 
 .finishDate {
-  grid-column: 2;
-  grid-row: 2;
-}
-
-.dateText {
-  margin-bottom: 5px;
+    grid-column: 2;
+    grid-row: 2;
 }
 
 .starsContainer {
-  display: flex;
+    display: flex;
 }
 
 .stars {
-  grid-column: 2;
-  grid-row: 3;
-  display: flex;
-  align-items: center;
+    grid-column: 2;
+    grid-row: 3;
+    display: flex;
+    align-items: center;
 }
 
 .starsNull {
-  color: $base-green;
-  font-size: 24px;
-  cursor: pointer;
-  padding-top: 9px;
+    color: $base-green;
+    font-size: 24px;
+    cursor: pointer;
+    padding-top: 9px;
 }
 
 //Footer
 .footer {
-  border-radius: 0 0 10px 10px;
-  justify-content: space-between;
+    border-radius: 0 0 10px 10px;
+    justify-content: space-between;
 }
 
 button {
-  border-radius: 15px;
-  border: 2px solid white;
-  color: white;
-  padding: 1px 5px 1px 5px;
-  font-size: 18px;
-  font-family: GentiumBookBasic-Regular;
+    border-radius: 15px;
+    border: 2px solid white;
+    color: white;
+    padding: 1px 5px 1px 5px;
+    font-size: 18px;
+    font-family: GentiumBookBasic-Regular;
 }
 
 button:hover {
-  text-decoration: underline;
-  cursor: pointer;
+    text-decoration: underline;
+    cursor: pointer;
 }
 
 button:disabled {
-  border: 2px solid gray;
-  color: gray;
+    border: 2px solid gray;
+    color: gray;
 }
 
 button:disabled:hover {
-  background-color: $base-green;
-  cursor: default;
-  text-decoration: none;
+    background-color: $base-green;
+    cursor: default;
+    text-decoration: none;
 }
 
 textarea {
-  width: calc(100% - 10px);
-  height: 100px;
-  resize: none;
-  border: 1px solid $base-green;
-  border-radius: 10px;
-  padding: 5px;
+    width: calc(100% - 10px);
+    height: 100px;
+    resize: none;
+    border: 1px solid $base-green;
+    border-radius: 10px;
+    padding: 5px;
 }
 
 textarea:focus {
-  outline: none;
-  box-shadow: 0 0 0 2px $base-green;
+    outline: none;
+    box-shadow: 0 0 0 2px $base-green;
 }
 
 .input {
-  display: none;
+    display: none;
+}
+
+input {
+    margin-top: 5px;
+    border: 1px solid $base-green;
+    color: $base-green;
+    font-weight: bold;
+}
+
+input:focus {
+    outline: 1px solid $base-green;
+    border-radius: 5px;
+}
+
+::-webkit-calendar-picker-indicator {
+    filter: invert(42%) sepia(31%) saturate(674%) hue-rotate(128deg)
+        brightness(89%) contrast(90%);
 }
 
 .label,
 .label label {
-  font-size: 30px;
-  color: $base-green;
-  cursor: pointer;
+    font-size: 30px;
+    color: $base-green;
+    cursor: pointer;
 }
 
 .stars:hover .label,
 .starsNull:hover {
-  -webkit-text-stroke: 1px $base-green;
+    -webkit-text-stroke: 1px $base-green;
 }
 
 .label:hover ~ .label {
-  -webkit-text-stroke: 0px;
+    -webkit-text-stroke: 0px;
 }
 
 //Meda Queries
 @media screen and (max-width: 768px) {
-  button {
-    font-size: 14px;
-  }
-  .header,
-  .wrapper {
-    font-size: 16px;
-  }
+    button {
+        font-size: 14px;
+    }
+    .header,
+    .wrapper {
+        font-size: 16px;
+    }
 
-  .header,
-  .footer {
-    height: 10px;
-  }
+    .header,
+    .footer {
+        height: 10px;
+    }
 
-  .xButton {
-    font-size: 30px;
-  }
+    .xButton {
+        font-size: 30px;
+    }
 
-  .label {
-    font-size: 25px;
-  }
+    .label {
+        font-size: 25px;
+    }
 
-  .starsNull {
-    font-size: 22px;
-    margin-top: 5px;
-  }
+    .starsNull {
+        font-size: 22px;
+        margin-top: 5px;
+    }
 }
 
 @media screen and (max-width: 480px) {
-  .wrapper {
-    display: grid;
-    grid-template-columns: auto;
-    gap: 10px;
-  }
+    .wrapper {
+        display: grid;
+        grid-template-columns: auto;
+        gap: 10px;
+    }
 }
