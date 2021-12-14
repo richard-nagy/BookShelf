@@ -1,346 +1,345 @@
 @import "./Variables.scss";
 
 .flexRow {
-  display: flex;
-  flex-direction: row;
+	display: flex;
+	flex-direction: row;
 }
 
-//Base Website 
+//Base Website
 html,
 body {
-  margin: 0;
-  background-color: $pale-green;
+	margin: 0;
+	background-color: $pale-green;
 }
 
-.appContainerScrollable,
-.appContainerUnscrollable {
-  display: grid;
-  grid-template-rows: 1fr auto;
-  height: 100vh;
+.appScrollable,
+.appUnscrollable {
+	display: grid;
+	grid-template-rows: 1fr auto;
+	height: 100vh;
 }
 
-.appContainerUnscrollable {
-  overflow: hidden;
+.appUnscrollable {
+	overflow: hidden;
 }
 
 //Dark Overlay
 .darkOverlay {
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  height: 100%;
-  width: 100%;
-  background-color: #0000007f;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	height: 100%;
+	width: 100%;
+	background-color: #0000007f;
 }
 
-//Header 
+//Header
 .header {
-  justify-content: center;
-  background-color: $base-green;
-  width: 100%;
-  height: 50px;
-  grid-row-start: 0;
-  grid-row-end: 1;
+	justify-content: center;
+	background-color: $base-green;
+	width: 100%;
+	height: 50px;
+	grid-row-start: 0;
+	grid-row-end: 1;
 }
 
 .menu {
-  display: flex;
-  justify-content: space-between;
-  box-sizing: border-box;
-  align-items: center;
-  color: white;
-  width: 80%;
-  max-width: 1100px;
-  height: 50px;
-  grid-row-start: 1;
-  grid-row-end: 2;
-  margin: auto;
-  margin: 0 auto 0 auto;
+	display: flex;
+	justify-content: space-between;
+	box-sizing: border-box;
+	align-items: center;
+	color: white;
+	width: 80%;
+	max-width: 1100px;
+	height: 50px;
+	grid-row-start: 1;
+	grid-row-end: 2;
+	margin: auto;
+	margin: 0 auto 0 auto;
 }
 
-.logo {
-  font-family: Pacifico-Regular;
-  font-size: 28px;
-  -webkit-user-select: none; /* Safari */
-  -moz-user-select: none; /* Firefox */
-  -ms-user-select: none; /* IE10+/Edge */
-  user-select: none; /* Standard */
+.header .menu p {
+	font-family: Pacifico-Regular;
+	font-size: 28px;
+	-webkit-user-select: none; /* Safari */
+	-moz-user-select: none; /* Firefox */
+	-ms-user-select: none; /* IE10+/Edge */
+	user-select: none; /* Standard */
 }
 
 .dropdown {
-  cursor: pointer;
-  background-color: white;
-  color: $base-green;
+	cursor: pointer;
+	background-color: white;
+	color: $base-green;
 }
 
-.languages {
-  padding: 5px;
-  border: 1px solid $base-green;
-  border-bottom: 0px;
+.dropdown .activeLang {
+	padding: 5px;
+	border: 1px solid $base-green;
+	border-bottom: 0px;
 }
 
 .lang {
-  background-color: white;
-  border: 1px solid $base-green;
-  display: none;
-  position: fixed;
-  padding: 5px;
+	background-color: white;
+	border: 1px solid $base-green;
+	display: none;
+	position: fixed;
+	padding: 5px;
 }
 
 .lang#en {
-  margin-top: 31px;
+	margin-top: 31px;
 }
 
 .dropdown:hover .lang {
-  display: inline;
+	display: inline;
 }
 
 .lang:hover {
-  background-color: $base-green;
-  color: white;
+	background-color: $base-green;
 }
 
 .flag {
-  width: 40px;
-  box-shadow: none;
+	width: 40px;
+	box-shadow: none;
 }
 
-//Content 
+//Content
 .content {
-  font-family: GentiumBookBasic-Regular;
-  height: fit-content;
-  background-color: white;
-  border-radius: 10px;
-  width: 80%;
-  max-width: 1100px;
-  padding: 25px;
-  margin: 25px auto 25px auto;
-  min-width: 300px;
+	font-family: GentiumBookBasic-Regular;
+	height: fit-content;
+	background-color: white;
+	border-radius: 10px;
+	width: 80%;
+	max-width: 1100px;
+	padding: 25px;
+	margin: 25px auto 25px auto;
+	min-width: 300px;
 }
 
-.optionsContainer {
-  composes: flexRow;
+.options {
+	composes: flexRow;
 }
 
 .optionButton,
 .optionButtonActive {
-  height: 20px;
-  width: fit-content;
-  padding: 5px 10px 5px 10px;
-  border-radius: 10px 10px 0 0;
-  margin-right: 10px;
-  font-size: 20px;
-  border: 2px solid $base-green;
-  border-bottom: none;
-  color: $base-green;
-  cursor: default;
-  font-family: GentiumBookBasic-Bold;
+	height: 20px;
+	width: fit-content;
+	padding: 5px 10px 5px 10px;
+	border-radius: 10px 10px 0 0;
+	margin-right: 10px;
+	font-size: 20px;
+	border: 2px solid $base-green;
+	border-bottom: none;
+	color: $base-green;
+	cursor: default;
+	font-family: GentiumBookBasic-Bold;
 }
 
 .optionButtonActive {
-  background-color: $base-green;
-  color: white;
+	background-color: $base-green;
+	color: white;
 }
 
 .optionButton:hover,
 .year:hover,
 .optionButtonActive:hover,
 .yearFocus:hover {
-  text-decoration: underline;
-  cursor: pointer;
+	text-decoration: underline;
+	cursor: pointer;
 }
 
-.optionDivider {
-  width: 100%;
-  height: 5px;
-  background-color: $base-green;
+.divider {
+	width: 100%;
+	height: 5px;
+	background-color: $base-green;
 }
 
-.yearsContainer {
-  composes: flexRow;
-  cursor: default;
-  color: $base-green;
-  font-size: 20px;
-  margin-top: 10px;
+.years {
+	composes: flexRow;
+	cursor: default;
+	color: $base-green;
+	font-size: 20px;
+	margin-top: 10px;
 }
 
-.yearsContainer div {
-  display: flex;
-  flex-direction: row;
+.years div {
+	display: flex;
+	flex-direction: row;
 }
 
-.yearsContainer div:not(:last-child):after {
-  content: "\00a0·\00a0";
-  font-weight: bold;
+.years div:not(:last-child):after {
+	content: "\00a0·\00a0";
+	font-weight: bold;
 }
 
 .yearsFocus {
-  font-family: GentiumBookBasic-Bold;
+	font-family: GentiumBookBasic-Bold;
 }
 
 .bookResults {
-  display: flex;
-  flex-direction: row;
-  margin: 10px 0 10px 0;
+	display: flex;
+	flex-direction: row;
+	margin: 10px 0 10px 0;
 }
 
-.bookResultsYear {
-  font-family: GentiumBookBasic-Bold;
-  font-size: $base-green;
-  font-size: 28px;
-  color: $base-green;
+.activeYear {
+	font-family: GentiumBookBasic-Bold;
+	font-size: $base-green;
+	font-size: 28px;
+	color: $base-green;
 }
 
-.bookResultsNmbr {
-  background-color: $base-green;
-  border-radius: 10px;
-  color: white;
-  font-size: 20px;
-  padding: 0 5px 0 5px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  height: 32px;
+.resultsNumber {
+	background-color: $base-green;
+	border-radius: 10px;
+	color: white;
+	font-size: 20px;
+	padding: 0 5px 0 5px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-weight: bold;
+	height: 32px;
 }
 
-.booksContainer {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
-  border-radius: 10px;
-  margin-top: 10px;
-  padding: 10px;
+.bookCovers {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 20px;
+	border-radius: 10px;
+	margin-top: 10px;
+	padding: 10px;
 }
 
-.booksStars {
-  cursor: pointer;
+.book {
+	cursor: pointer;
 }
 
-img {
-  display: block;
-  margin: auto;
-  box-shadow: -5px 5px 5px #aaaaaa;
-  max-height: 250px;
+.book img {
+	display: block;
+	margin: auto;
+	box-shadow: -5px 5px 5px #aaaaaa;
+	max-height: 250px;
 }
 
-.stars {
-  text-align: center;
-  color: $base-green;
-  font-size: 26px;
+.book div {
+	text-align: center;
+	color: $base-green;
+	font-size: 26px;
 }
 
 .addBook {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: $pale-green;
-  cursor: pointer;
-  width: 160px;
-  height: 250px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: $pale-green;
+	cursor: pointer;
+	width: 160px;
+	height: 250px;
 }
 
 .addCenter {
-  color: $pale-green;
-  border-radius: 50%;
-  background-color: $white-green;
-  height: 50px;
-  width: 50px;
+	color: $pale-green;
+	border-radius: 50%;
+	background-color: $white-green;
+	height: 50px;
+	width: 50px;
 }
 
 .addCenter::before {
-  content: "+";
-  height: 52px;
-  width: 50px;
-  font-size: 50px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  font-family: Arial, Helvetica, sans-serif;
-  color: $pale-green;
+	content: "+";
+	height: 52px;
+	width: 50px;
+	font-size: 50px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	font-family: Arial, Helvetica, sans-serif;
+	color: $pale-green;
 }
 
-//Meda Queries 
+//Meda Queries
 $breakpoints: (
-  1024px: 230px,
-  768px: 210px,
-  480px: 160px,
+	1024px: 230px,
+	768px: 210px,
+	480px: 160px,
 );
 
 @each $width, $margin in $breakpoints {
-  @media screen and (max-width: $width) {
-    .addBook {
-      height: $margin;
-    }
-    img {
-      max-height: $margin;
-    }
-    .stars {
-      font-size: calc($margin / 10);
-    }
-    .addBook {
-      width: calc($margin / 1.5);
-    }
-  }
+	@media screen and (max-width: $width) {
+		.addBook {
+			height: $margin;
+		}
+		img {
+			max-height: $margin;
+		}
+		.stars {
+			font-size: calc($margin / 10);
+		}
+		.addBook {
+			width: calc($margin / 1.5);
+		}
+	}
 }
 
 @media screen and (max-width: 768px) {
-  .bookResultsNmbr {
-    font-size: 16px;
-    height: 28px;
-  }
-  .bookResultsYear {
-    font-size: 24px;
-  }
+	.resultsNumber {
+		font-size: 16px;
+		height: 28px;
+	}
+	.activeYear {
+		font-size: 24px;
+	}
 
-  .optionButton,
-  .optionButtonActive,
-  .years {
-    font-size: 16px;
-  }
+	.optionButton,
+	.optionButtonActive,
+	.years {
+		font-size: 16px;
+	}
 
-  .optionButton,
-  .optionButtonActive {
-    padding: 2px 5px 0px 5px;
-    margin-bottom: -2px;
-  }
+	.optionButton,
+	.optionButtonActive {
+		padding: 2px 5px 0px 5px;
+		margin-bottom: -2px;
+	}
 
-  .content {
-    padding: 10px;
-  }
+	.content {
+		padding: 10px;
+	}
 
-  .menuItemsDesktop {
-    display: none;
-  }
+	.menuItemsDesktop {
+		display: none;
+	}
 
-  .menuItemsMobile {
-    display: inline;
-  }
+	.menuItemsMobile {
+		display: inline;
+	}
 
-  .header {
-    height: 37px;
-  }
+	.header {
+		height: 37px;
+	}
 
-  .logo {
-    font-size: 20px;
-    margin-top: -15px;
-  }
+	.logo {
+		font-size: 20px;
+		margin-top: -15px;
+	}
 
-  .srcDivider {
-    height: 3px;
-  }
+	.srcDivider {
+		height: 3px;
+	}
 
-  .dropdown {
-    margin-top: -15px;
-  }
+	.dropdown {
+		margin-top: -15px;
+	}
 
-  .flag {
-    width: 30px;
-  }
+	.flag {
+		width: 30px;
+	}
 
-  .lang#en {
-    margin-top: 26px;
-  }
+	.lang#en {
+		margin-top: 26px;
+	}
 }
