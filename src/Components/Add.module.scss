@@ -1,112 +1,115 @@
 @import "./Variables.scss";
 
 .addComponent {
-  position: absolute;
-  max-width: 850px;
-  max-height: 80%;
-  width: fit-content;
-  margin: auto;
-  font-family: GentiumBookBasic-Regular;
-  padding: 10px;
-  min-width: 300px;
+	position: absolute;
+	width: fit-content;
+	min-width: 300px;
+	max-width: 850px;
+	max-height: 80%;
+	font-family: GentiumBookBasic-Regular;
+	padding: 10px;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
 }
 
 .header,
 .footer {
-  height: 20px;
-  width: calc(100% - 20px);
-  background-color: $base-green;
-  color: white;
-  display: flex;
-  align-items: center;
-  padding: 10px;
-  font-size: 18px;
+	height: 20px;
+	width: calc(100% - 20px);
+	background-color: $base-green;
+	color: white;
+	display: flex;
+	align-items: center;
+	padding: 10px;
+	font-size: 18px;
 }
 
 //Header
 .header {
-  border-radius: 10px 10px 0 0;
-  justify-content: space-between;
+	border-radius: 10px 10px 0 0;
+	justify-content: space-between;
 }
 
 .xButton {
-  cursor: pointer;
-  color: white;
-  font-size: 45px;
-  transform: rotate(45deg);
+	cursor: pointer;
+	color: white;
+	font-size: 45px;
+	transform: rotate(45deg);
 }
 
 .xButton:hover {
-  color: lightgray;
+	color: lightgray;
 }
 
 //Content
 .content {
-  background-color: white;
-  height: 80%;
-  width: calc(100% - 20px);
-  padding: 10px;
-  overflow: auto;
+	background-color: white;
+	height: 80%;
+	width: calc(100% - 20px);
+	padding: 10px;
+	overflow: auto;
 }
 
-.booksContainer {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
-  padding: 10px;
+.bookCovers {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 20px;
+	padding: 10px;
 }
 
 .addImg {
-  cursor: pointer;
+	cursor: pointer;
+	height: 250px;
 }
 
 //Footer
 .footer {
-  border-radius: 0 0 10px 10px;
-  justify-content: flex-end;
+	border-radius: 0 0 10px 10px;
+	justify-content: flex-end;
 }
 
 button {
-  background-color: $base-green;
-  border-radius: 15px;
-  border: 2px solid white;
-  color: white;
-  padding: 1px 5px 1px 5px;
-  font-size: 18px;
-  font-family: GentiumBookBasic-Regular;
+	background-color: $base-green;
+	border-radius: 15px;
+	border: 2px solid white;
+	color: white;
+	padding: 1px 5px 1px 5px;
+	font-size: 18px;
+	font-family: GentiumBookBasic-Regular;
 }
 
 button:hover {
-  text-decoration: underline;
-  cursor: pointer;
+	text-decoration: underline;
+	cursor: pointer;
 }
 
 button:disabled {
-  border: 2px solid gray;
-  color: gray;
+	border: 2px solid gray;
+	color: gray;
 }
 
 button:disabled:hover {
-  background-color: $base-green;
-  cursor: default;
-  text-decoration: none;
+	background-color: $base-green;
+	cursor: default;
+	text-decoration: none;
 }
 
 @media screen and (max-width: 768px) {
-  button {
-    font-size: 14px;
-  }
-  .header {
-    font-size: 16px;
-  }
+	button {
+		font-size: 14px;
+	}
+	.header {
+		font-size: 16px;
+	}
 
-  .header,
-  .footer {
-    height: 10px;
-  }
+	.header,
+	.footer {
+		height: 10px;
+	}
 
-  .xButton {
-    font-size: 30px;
-  }
+	.xButton {
+		font-size: 30px;
+	}
 }
